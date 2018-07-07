@@ -2,5 +2,14 @@
   "name": "tiler",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./build/main.js",
+    "dev": "backpack dev",
+    "build": "backpack build",
+    "postinstall": "backpack build"
+  },
+  "devDependencies": {
+    "backpack-core": "^0.7.0"
+  }
 }
