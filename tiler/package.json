@@ -11,5 +11,8 @@
   },
   "devDependencies": {
     "backpack-core": "^0.7.0"
+  },
+  "dependencies": {
+    "uuid": "^3.3.2"
   }
 }
