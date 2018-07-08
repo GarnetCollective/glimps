@@ -9,4 +9,4 @@ const files = [
 
 const brand = "fixtures/brand.jpg";
 
-createCollage(files, brand);
+// createCollage(files, brand);

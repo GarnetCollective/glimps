@@ -4,7 +4,7 @@ const WIDTH = 1024;
 const HEIGHT = 768;
 // const WIDTH = 1600;
 // const HEIGHT = 900;
-const padding = 24;
+const PADDING = 24;
 
 const BORDER_COLORS = {
   white: 0xFFFFFFFF,
@@ -17,8 +17,8 @@ const makeCoords = (topX, topY) => ({
 });
 
 const calculateDims = () => {
-  let availW = WIDTH - padding * 3;
-  let availH = HEIGHT - padding * 3;
+  let availW = WIDTH - PADDING * 3;
+  let availH = HEIGHT - PADDING * 3;
 
   let image_width = Math.floor(availW / 2);
   let image_height = Math.floor(availH / 2);
@@ -57,26 +57,29 @@ const calculateCoords = (imgW, imgH, pad) => {
   return coords;
 };
 
+const getResizedImage = async (path, new_width, new_height) => {
+  let image = await Jimp.read(path);
+  image.cover(
+    new_width,
+    new_height,
+    Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+  );
+  return image;
+}
+
 export const createCollage = async (files, brand) => {
   const paths = [...files, brand];
   const dest = `fixtures/${Date.now()}_collage.jpg`;
   try {
     let { image_width, image_height } = calculateDims();
-    let coords = calculateCoords(image_width, image_height, padding);
-
+    let coords = calculateCoords(image_width, image_height, PADDING);
     let canvas = await makeImg(WIDTH, HEIGHT, BORDER_COLORS.black);
 
     for (var idx = 0; idx < paths.length; idx++) {
       let path = paths[idx];
-      let im = await Jimp.read(path);
-      im.cover(
-        image_width,
-        image_height,
-        Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
-      );
-
       let { x, y } = coords[idx];
-      canvas.composite(im, x, y);
+      let resizedImg = getResizedImage(path);
+      canvas.composite(resizedImg, x, y);
     }
 
     await saveCanvas(canvas, dest);
