@@ -1,4 +1,5 @@
 import Jimp from "jimp";
+import uuid from "uuid/v1";
 
 const WIDTH = 1024;
 const HEIGHT = 768;
@@ -28,6 +29,14 @@ const calculateDims = () => {
     image_height
   };
 };
+
+const getDestInfo = () => {
+  const fileName = `c_${uuid()}.jpg`;
+  return {
+    file_name: fileName,
+    file_path: `tmp/${fileName}`
+  } 
+}
 
 const saveCanvas = (canvas, path) => {
   return new Promise(resolve => {
@@ -69,7 +78,7 @@ const getResizedImage = async (path, new_width, new_height) => {
 
 export const createCollage = async (files, brand) => {
   const paths = [...files, brand];
-  const dest = `fixtures/${Date.now()}_collage.jpg`;
+  const dest = getDestInfo();
   try {
     let { image_width, image_height } = calculateDims();
     let coords = calculateCoords(image_width, image_height, PADDING);
@@ -82,10 +91,11 @@ export const createCollage = async (files, brand) => {
       canvas.composite(resizedImg, x, y);
     }
 
-    await saveCanvas(canvas, dest);
-    console.log("Wrote: ", dest);
+    await saveCanvas(canvas, dest.file_path);
+    return dest;
 
   } catch (e) {
     console.log(e);
+    return null;
   }
 };

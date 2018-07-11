@@ -1,5 +1,4 @@
 import { createCollage } from "./tiler";
-import path from "path";
 
 const files = [
   "fixtures/input1.jpg",
@@ -9,4 +8,4 @@ const files = [
 
 const brand = "fixtures/brand.jpg";
 
-// createCollage(files, brand);
+// const res = createCollage(files, brand);
