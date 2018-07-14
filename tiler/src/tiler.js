@@ -12,6 +12,11 @@ const BORDER_COLORS = {
   black: 0x00000000
 };
 
+/**
+ * 
+ * @param {number} topX 
+ * @param {number} topY 
+ */
 const makeCoords = (topX, topY) => ({
   x: topX,
   y: topY
