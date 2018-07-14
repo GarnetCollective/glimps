@@ -8,9 +8,9 @@ const HEIGHT = 768;
 const PADDING = 24;
 
 const BORDER_COLORS = {
-  white: 0xFFFFFFFF,
-  black: 0x00000000,
-}
+  white: 0xffffffff,
+  black: 0x00000000
+};
 
 const makeCoords = (topX, topY) => ({
   x: topX,
@@ -35,15 +35,27 @@ const getDestInfo = () => {
   return {
     file_name: fileName,
     file_path: `tmp/${fileName}`
-  } 
-}
+  };
+};
 
+/**
+ *
+ * @param {Jimp} canvas
+ * @param {path} path
+ */
 const saveCanvas = (canvas, path) => {
   return new Promise(resolve => {
     canvas.write(path, resolve);
   });
 };
 
+/**
+ * Creates a new Jimp canvas
+ * @param {number} w
+ * @param {number} h
+ * @param {number} bgColor
+ * @returns {Promise<Jimp>}
+ */
 const makeImg = (w, h, bgColor = BORDER_COLORS.white) => {
   return new Promise((resolve, reject) => {
     new Jimp(w, h, bgColor, (err, image) => {
@@ -66,16 +78,28 @@ const calculateCoords = (imgW, imgH, pad) => {
   return coords;
 };
 
-const getResizedImage = async (path, new_width, new_height) => {
-  let image = await Jimp.read(path);
+/**
+ * Rezises image to cover within bounds
+ * @param {Jimp} image
+ * @param {number} new_width
+ * @param {number} new_height
+ */
+const getResizedImage = (image, new_width, new_height) => {
   image.cover(
     new_width,
     new_height,
     Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
   );
   return image;
-}
+};
 
+/**
+ * Creates a 4 square collage, with 3 images and a brand image
+ * in the last slot.
+ * @param {Array<string>} files
+ * @param {string} brand
+ * @returns {Promise<{file_name: string, file_path: string}>}
+ */
 export const createCollage = async (files, brand) => {
   const paths = [...files, brand];
   const dest = getDestInfo();
@@ -87,15 +111,14 @@ export const createCollage = async (files, brand) => {
     for (var idx = 0; idx < paths.length; idx++) {
       let path = paths[idx];
       let { x, y } = coords[idx];
-      let resizedImg = getResizedImage(path);
+      let im = await Jimp.read(path);
+      let resizedImg = await getResizedImage(im, image_width, image_height);
       canvas.composite(resizedImg, x, y);
     }
 
     await saveCanvas(canvas, dest.file_path);
     return dest;
-
   } catch (e) {
-    console.log(e);
-    return null;
+    return e;
   }
 };
