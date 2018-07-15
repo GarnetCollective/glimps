@@ -21,15 +21,6 @@ const rm = path => {
   });
 };
 
-const toBase64 = path => {
-  return new Promise((resolve, reject) => {
-    base64(path, (err, data) => {
-      err && reject(err);
-      resolve(data);
-    });
-  });
-};
-
 const save = data => {
   return new Promise((resolve, reject) => {
     img(data, "tmp", uuid(), (err, location) => {
@@ -54,8 +45,6 @@ const create = async (req, res) => {
 
     let collage = await createCollage(images, brand);
     console.log({ collage });
-    let encodedImg = await toBase64(collage.file_path);
-
     console.log("\n");
 
     await cleanUp(images);
