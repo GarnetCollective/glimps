@@ -8,6 +8,6 @@ const files = [
 ];
 const brand = "fixtures/brand.jpg";
 
-createCollage(files, brand)
-  .then(collage => console.log({ collage }))
-  .catch(console.log);
+// createCollage(files, brand)
+//   .then(collage => console.log({ collage }))
+//   .catch(console.log);
