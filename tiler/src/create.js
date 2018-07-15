@@ -1,7 +1,7 @@
-import { img, base64 } from "base64-img";
-import * as fs from "fs";
+import { img } from "base64-img";
+import { unlink } from "fs";
 import uuid from "uuid/v1";
-import * as path from "path";
+import { resolve as path_resolve } from "path";
 import { createCollage } from "./tiler";
 
 const brand = "fixtures/brand.jpg";
@@ -12,7 +12,7 @@ const cleanUp = async images => {
 
 const rm = path => {
   return new Promise((resolve, reject) => {
-    fs.unlink(path, err => {
+    unlink(path, err => {
       if (err) {
         reject(err);
       }
@@ -25,7 +25,7 @@ const save = data => {
   return new Promise((resolve, reject) => {
     img(data, "tmp", uuid(), (err, location) => {
       err && reject(err);
-      resolve(path.resolve(location));
+      resolve(path_resolve(location));
     });
   });
 };
