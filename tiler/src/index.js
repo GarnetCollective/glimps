@@ -20,5 +20,5 @@ app.listen(PORT, err => {
   if (__DEV__) {
     console.log("> in development");
   }
-  console.log(`>${APP_NAME} listening on port ${PORT}`);
+  console.log(`> ${APP_NAME} listening on port ${PORT}`);
 });
