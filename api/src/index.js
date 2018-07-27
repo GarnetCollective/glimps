@@ -1,25 +1,25 @@
 import "./env";
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
 import bodyParser from "body-parser";
-const { PORT = 3000, APP_NAME = "API" } = process.env;
+
+const { PORT, APP_NAME, NODE_ENV } = process.env;
 
 const app = express();
+
+// Express middleware
 app.use(cors());
+app.use(helmet());
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
 
-app.get("/", (req, res) => {
-  res.status(200).json({ success: true, msg: "Hello boi" });
-});
+// Routes
+import apiRoutes from "./routes";
+app.use("/api", apiRoutes);
 
 app.listen(PORT, err => {
-  if (err) {
-    console.error(err);
-  }
-
-  if (__DEV__) {
-    console.log("> in development");
-  }
+  err && console.log(err.message);
+  console.log(`> in ${NODE_ENV}`);
   console.log(`> ${APP_NAME} listening on port ${PORT}`);
 });
