@@ -1,11 +1,13 @@
 import { Router } from "express";
+import events from "../controllers/events";
+import glimps from "../controllers/glimps";
 
 const apiRouter = Router();
 
-import events from "../controllers/events";
-apiRouter.use("/events", events);
+apiRouter.get("/events", events.index);
+apiRouter.get("/events/:id", events.show);
 
-import glimps from "../controllers/glimps";
-apiRouter.use("/glimps", glimps);
+apiRouter.get("/glimps", glimps.index);
+apiRouter.get("/glimps/:id", glimps.show);
 
 export default apiRouter;
