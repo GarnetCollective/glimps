@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Glimps",
+    "description": "",
+    "slug": "",
+    "privacy": "public",
+    "sdkVersion": "25.0.0",
+    "version": "1.0.0",
+    "orientation": "landscape",
+    "primaryColor": "#f7f7f7",
+    "icon": "./assets/",
+    "splash": {
+      "image": "./assets/",
+      "resizeMode": "cover"
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
