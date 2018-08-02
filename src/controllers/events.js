@@ -1,4 +1,4 @@
-import { Event } from "../models";
+import { createEvent } from "../services/event";
 
 const index = (req, res) => {
   res.status(200).send({ success: true, msg: "events" });
@@ -11,11 +11,10 @@ const show = (req, res) => {
 
 const create = async (req, res) => {
   try {
-    await Event.create({
-      id: "feb4ff69-58b2-482d-bcb2-b87a40460599",
-      Name: "Spoke"
-    });
-    res.send({ success: true, msg: "Created" });
+    // const { name } = req.body;
+    const name = "Speak";
+    const event = await createEvent(name);
+    res.send({ success: true, msg: "Event Created", event: event });
   } catch (e) {
     res.send({ success: false, msg: e.message });
   }
