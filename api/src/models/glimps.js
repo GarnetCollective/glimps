@@ -1,17 +1,10 @@
-import sequelize from "../db";
+const GlimpsModel = (sequelize, Sequelize) => {
+  return sequelize.define("glimps", {
+    id: { type: Sequelize.UUID, primaryKey: true, validate: { isUUID: 4 } },
+    eventid: { type: Sequelize.STRING, validate: { isUUID: 4 } },
+    imageUrl: { type: Sequelize.STRING },
+    thumbUrl: { type: Sequelize.STRING }
+  });
+};
 
-const Glimps = sequelize.define("glimps", {
-  id: {
-    type: Sequelize.UUID,
-    primaryKey: true
-  },
-  eventid: {
-    type: Sequelize.STRING
-  },
-  created_at: {
-    type: sequelize.DATE
-  },
-  updated_at: {
-    type: sequelize.DATE
-  }
-});
+export default GlimpsModel;
