@@ -1,22 +1,44 @@
-import { createEvent } from "../services/event";
+import { isValid } from "date-fns";
+import validate from "uuid-validate";
+
+import { successResponse, failureResponse } from "./responses";
+
+import eventService from "../services/event";
 
 const index = (req, res) => {
   res.status(200).send({ success: true, msg: "events" });
 };
 
-const show = (req, res) => {
-  const { id } = req.params;
-  res.status(200).send({ success: true, msg: `event ${id}` });
+const show = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const isValidUUID = validate(id, 4);
+    if (!isValidUUID) {
+      return failureResponse(res, "Not a valid UUID");
+    }
+
+    const event = await eventService.find(id);
+    return successResponse(res, event);
+  } catch (e) {
+    return failureResponse(res, e.message);
+  }
 };
 
 const create = async (req, res) => {
+  let { name, date } = req.body;
+
+  date = new Date(date);
+  const isValidDate = isValid(date);
+  if (!isValidDate) {
+    return failureResponse(res, "Not a valid date.");
+  }
+
   try {
-    // const { name } = req.body;
-    const name = "Speak";
-    const event = await createEvent(name);
-    res.send({ success: true, msg: "Event Created", event: event });
+    const event = await eventService.create(name, date);
+    return successResponse(res, event);
   } catch (e) {
-    res.send({ success: false, msg: e.message });
+    return failureResponse(res, e.message);
   }
 };
 
