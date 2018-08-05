@@ -13,7 +13,8 @@ import apiRoutes from "./routes";
 const app = express();
 
 sequelize
-  .sync({ force: true })
+  .sync()
+  // .sync({ force: true })
   .then(() => console.log("> DB & Tables created."))
   .catch(e => console.log(e.message));
 
