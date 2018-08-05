@@ -47,6 +47,9 @@ const create = (
 /**
  * @param {string} id
  */
-const find = id => Event.findById(id);
+const findById = id => Event.findById(id);
 
-export default { create, find };
+const find = (limit = 10, offset = 0) =>
+  Event.findAll({ offset: offset, limit: limit });
+
+export default { create, findById, find };

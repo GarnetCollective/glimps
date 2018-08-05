@@ -5,8 +5,14 @@ import { successResponse, failureResponse } from "./responses";
 
 import eventService from "../services/event";
 
-const index = (req, res) => {
-  res.status(200).send({ success: true, msg: "events" });
+const index = async (req, res) => {
+  try {
+    const { limit, offset} = req.params;
+    let events = await eventService.find(limit, offset);
+    return successResponse(res, events);
+  } catch(e) {
+    return failureResponse(res, e.message);
+  }
 };
 
 const show = async (req, res) => {
@@ -18,7 +24,7 @@ const show = async (req, res) => {
       return failureResponse(res, "Not a valid UUID");
     }
 
-    const event = await eventService.find(id);
+    const event = await eventService.findById(id);
     return successResponse(res, event);
   } catch (e) {
     return failureResponse(res, e.message);
