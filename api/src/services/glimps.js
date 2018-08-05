@@ -9,7 +9,7 @@ const tiler = axios.create({ baseURL: "http://localhost:3001" });
 /**
  * @param {string} id
  */
-const find = id => Glimps.findById(id);
+const findById = id => Glimps.findById(id);
 
 /**
  * @param {string} eventId
@@ -42,4 +42,4 @@ const create = async (eventId, data) => {
   });
 };
 
-export default { find, create };
+export default { findById, create };
