@@ -5,6 +5,34 @@ import uuid from "uuid/v4";
 import axios from "axios";
 
 const tiler = axios.create({ baseURL: "http://localhost:3001" });
+/**
+ * @typedef {Object} Event
+ * @property {string} id
+ * @property {string} name
+ * @property {date} date
+ * @property {string} mainImageUrl
+ * @property {string} logoUrl
+ * @property {string} secretKey
+ * @property {string} slug
+ */
+
+/**
+ * @param {Event} event
+ * @param {string} data
+ */
+const makeGlimps = async (event, data) => {
+  try {
+    const glimps = await tiler.post("/create", {
+      eventName: event.name,
+      brandImage: event.mainImageUrl,
+      story: data
+    });
+    return glimps.data;
+  } catch (e) {
+    console.error(`Glimps service: ${e.message}`);
+    return null;
+  }
+};
 
 /**
  * @param {string} id
@@ -22,22 +50,16 @@ const create = async (eventId, data) => {
     throw new Error("eventId is not valid");
   }
 
-  let glimps;
-  try {
-    glimps = await tiler.post("/create", {
-      eventName: event.name,
-      brandImage: event.mainImageUrl,
-      story: data
-    });
-  } catch (e) {
-    console.error(`Glimps service: ${e.message}`);
+  let glimps = await makeGlimps(event, data);
+
+  if (!glimps) {
     throw new Error("Could not make collage.");
   }
 
   return Glimps.create({
     id: uuid(),
-    imageUrl: glimps.data.collage,
-    thumbUrl: glimps.data.collage,
+    imageUrl: glimps.collage,
+    thumbUrl: glimps.collage,
     eventId: event.id
   });
 };
