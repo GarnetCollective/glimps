@@ -13,7 +13,7 @@ const find = id => Glimps.findById(id);
 
 /**
  * @param {string} eventId
- * @param {Array<Buffer>} data
+ * @param {Array<string>} data
  */
 const create = async (eventId, data) => {
   let event = await eventService.findById(eventId);
@@ -22,11 +22,17 @@ const create = async (eventId, data) => {
     throw new Error("eventId is not valid");
   }
 
-  let glimps = await tiler.post("/create", {
-    eventName: event.name,
-    brandImage: event.mainImageUrl,
-    story: data
-  });
+  let glimps;
+  try {
+    glimps = await tiler.post("/create", {
+      eventName: event.name,
+      brandImage: event.mainImageUrl,
+      story: data
+    });
+  } catch (e) {
+    console.error(`Glimps service: ${e.message}`);
+    throw new Error("Could not make collage.");
+  }
 
   return Glimps.create({
     id: uuid(),
