@@ -13,4 +13,17 @@ const show = async (req, res) => {
   }
 };
 
-export default { show };
+const create = async (req, res) => {
+  try {
+    const {eventId} = req.body;
+    const imageUrl = "https://i.imgur.com/hskaIfn.jpg";
+    const thumbUrl = "https://i.imgur.com/hskaIfn.jpg";
+
+    let glimps = await glimpsService.create(eventId, imageUrl, thumbUrl);
+    return successResponse(res, glimps);
+  } catch (e) {
+    return failureResponse(res, e.message);
+  }
+}
+
+export default { show, create };
