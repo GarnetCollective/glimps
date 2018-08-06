@@ -1,10 +1,10 @@
 import { Glimps } from "../models";
-import eventService from "./event";
+import eventService from "./events";
 import uuid from "uuid/v4";
 
 import axios from "axios";
-
 const tiler = axios.create({ baseURL: "http://localhost:3001" });
+
 /**
  * @typedef {Object} Event
  * @property {string} id
@@ -41,6 +41,16 @@ const findById = id => Glimps.findById(id);
 
 /**
  * @param {string} eventId
+ */
+const findByEventId = eventId =>
+  Glimps.findAll({
+    where: {
+      eventId: eventId
+    }
+  });
+
+/**
+ * @param {string} eventId
  * @param {Array<string>} data
  */
 const create = async (eventId, data) => {
@@ -64,4 +74,4 @@ const create = async (eventId, data) => {
   });
 };
 
-export default { findById, create };
+export default { findById, findByEventId, create };
