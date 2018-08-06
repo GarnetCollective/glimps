@@ -9,7 +9,7 @@ import styles from "../css/styles";
 
 export class Preview extends React.Component {
   render() {
-    const { story, message } = this.props.navigation.state.params;
+    const { story } = this.props.navigation.state.params;
     const { navigate } = this.props.navigation;
     return (
       <Camera
@@ -21,7 +21,6 @@ export class Preview extends React.Component {
       >
         <View style={styles.previewScreenOverlay}>
           <Image source={{ uri: story }} style={styles.result} />
-          <Text style={styles.resultText}>{message}</Text>
           <Text style={styles.startOverText} onPress={() => navigate("Home")}>
             Start Over
           </Text>
