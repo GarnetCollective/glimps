@@ -13,15 +13,4 @@ const show = async (req, res) => {
   }
 };
 
-const create = async (req, res) => {
-  try {
-    const { eventId, data } = req.body;
-
-    let glimps = await glimpsService.create(eventId, data);
-    return successResponse(res, glimps);
-  } catch (e) {
-    return failureResponse(res, e.message);
-  }
-};
-
-export default { show, create };
+export default { show };
