@@ -104,15 +104,9 @@ export class Countdown extends React.Component {
         ...pic,
         base64: `data:image/jpg;base64,${pic.base64}`
       }));
-      const { success, collage, message } = await createCollage(adjusted);
-      if (success) {
-        navigate("Preview", { story: collage, message: message });
-      } else {
-        navigate("Preview", {
-          story: collage,
-          message: message
-        });
-      }
+      const { collage } = await createCollage(adjusted);
+
+      navigate("Preview", { story: collage });
     } catch (e) {
       this.setState({ error: true });
     }
