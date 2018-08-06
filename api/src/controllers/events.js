@@ -3,12 +3,12 @@ import validate from "uuid-validate";
 
 import { successResponse, failureResponse } from "./responses";
 
-import eventService from "../services/event";
+import eventsService from "../services/events";
 
 const index = async (req, res) => {
   try {
     const { limit, offset } = req.params;
-    let events = await eventService.find(limit, offset);
+    let events = await eventsService.find(limit, offset);
     return successResponse(res, events);
   } catch (e) {
     return failureResponse(res, e.message);
@@ -24,7 +24,7 @@ const show = async (req, res) => {
       return failureResponse(res, "Not a valid UUID");
     }
 
-    const event = await eventService.findById(id);
+    const event = await eventsService.findById(id);
     return successResponse(res, event);
   } catch (e) {
     return failureResponse(res, e.message);
@@ -41,7 +41,7 @@ const create = async (req, res) => {
   }
 
   try {
-    const event = await eventService.create(name, date, mainImageUrl);
+    const event = await eventsService.create(name, date, mainImageUrl);
     return successResponse(res, event);
   } catch (e) {
     return failureResponse(res, e.message);
