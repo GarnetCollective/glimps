@@ -10,3 +10,5 @@ yarn.lock
 yarn-error.log
 *.sqlite
 coverage
+.vs
+.vscode
