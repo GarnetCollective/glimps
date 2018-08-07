@@ -8,7 +8,7 @@
     "dev": "backpack dev",
     "build": "backpack build",
     "postinstall": "backpack build",
-    "test": "NODE_ENV=test jest --no-cache --detectOpenHandles"
+    "test": "NODE_ENV=test jest --no-cache --detectOpenHandles --colors"
   },
   "devDependencies": {
     "babel-jest": "^23.4.2",
@@ -32,9 +32,24 @@
     "bail": false,
     "verbose": true,
     "forceExit": true,
+    "collectCoverage": false,
     "testURL": "http://localhost/",
+    "coverageReporters": [
+      "json",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js}",
+      "!/node_modules/*"
+    ],
     "coveragePathIgnorePatterns": [
-      "/node_modules"
+      "/node_modules/"
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/(build|node_modules)/"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/(build|node_modules)/"
     ]
   }
 }

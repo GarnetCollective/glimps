@@ -12,11 +12,13 @@ import apiRoutes from "./routes";
 
 const app = express();
 
-sequelize
-  .sync()
-  // .sync({ force: true })
-  .then(() => console.log("> DB & Tables created."))
-  .catch(e => console.log(e.message));
+if (NODE_ENV !== "test") {
+  sequelize
+    .sync()
+    // .sync({ force: true })
+    .then(() => console.log("> DB & Tables created."))
+    .catch(e => console.log(e.message));
+}
 
 app.use(cors());
 app.use(helmet());
@@ -25,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
 
 app.use("/api", apiRoutes);
 
-if (NODE_ENV != "test") {
+if (NODE_ENV !== "test") {
   app.listen(PORT, err => {
     err && console.log(err.message);
     console.log(`> in ${NODE_ENV}`);
