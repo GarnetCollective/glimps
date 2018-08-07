@@ -25,8 +25,12 @@ app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
 
 app.use("/api", apiRoutes);
 
-app.listen(PORT, err => {
-  err && console.log(err.message);
-  console.log(`> in ${NODE_ENV}`);
-  console.log(`> ${APP_NAME} listening on port ${PORT}`);
-});
+if (NODE_ENV != "test") {
+  app.listen(PORT, err => {
+    err && console.log(err.message);
+    console.log(`> in ${NODE_ENV}`);
+    console.log(`> ${APP_NAME} listening on port ${PORT}`);
+  });
+}
+
+export default app;
