@@ -63,54 +63,100 @@ export default StyleSheet.create({
     height: height
   },
 
-  // Event
-  eventList: {
-    top: 50
+  // Events
+  events: {
+    backgroundColor: "rgb(255, 255, 255)"
+  },
+  eventsHeaderCamera: {
+    height: height / 2.5
   },
 
-  eventContainer: {
-    flex: 1,
-    flexDirection: "row",
+  eventsHeader: {
+    height: height / 2.5,
+    width: width,
+    backgroundColor: "rgba(74, 66, 238, 0.7)"
+  },
+
+  eventsHeaderTitle: {
+    textAlign: "center",
+    marginTop: 100,
+    fontSize: 60,
+    fontWeight: "bold",
+    color: "white",
+    fontFamily: "Avenir Next"
+  },
+
+  eventsContainer: {
+    width: width,
+    height: height,
     justifyContent: "center",
     alignItems: "center",
-    width: 500,
-    height: 100,
-    backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5
-    },
-    shadowOpacity: 0.14,
-    shadowRadius: 6.27,
-    elevation: 10
-    // top: 50
+    bottom: height / 3.5
   },
-  eventDateContainer: {
-    width: 100,
-    height: 100,
-    justifyContent: "center"
+  eventsListContainer: {
+    width: width / 1.22,
+    height: height / 1.5,
+    backgroundColor: "white",
+    overflow: "scroll",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    paddingHorizontal: 30,
+    paddingVertical: 30
   },
-  eventNameContainer: {
-    width: 300,
-    height: 100,
-    justifyContent: "center"
+  eventsInfo: {
+    // flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
+  eventsListSelect: {
+    fontWeight: "bold",
+    fontFamily: "Avenir Next",
+    fontSize: 30
+  },
+  eventsListAvailable: {
+    fontFamily: "Avenir Next",
+    fontSize: 25,
+    fontWeight: "600",
+    color: "#404040"
+  },
+
+  eventList: {
+    flexDirection: "row",
+    paddingVertical: 30,
+    justifyContent: "space-between",
+    flexWrap: "wrap"
+  },
+
+  eventCard: {
+    overflow: "hidden",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    width: 250,
+    // marginHorizontal: 10,
+    marginVertical: 10
+  },
+
   eventImage: {
-    width: 100,
-    height: 100
+    height: 150,
+    resizeMode: "cover"
   },
-  eventDate: {
-    fontSize: 30,
-    paddingLeft: 15,
-    paddingRight: 15,
-    textAlign: "center",
-    fontWeight: "bold"
+  eventCardInfo: {
+    paddingLeft: 20,
+    paddingTop: 20,
+    paddingBottom: 20
   },
   eventName: {
-    fontSize: 30,
-    color: "#000",
-    textAlign: "center"
+    fontFamily: "Avenir Next",
+    fontSize: 20,
+    fontWeight: "bold"
+  },
+  eventDate: {
+    fontFamily: "Avenir Next",
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#404040"
   },
 
   // Loader

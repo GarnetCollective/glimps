@@ -1,3 +1,5 @@
 import { createCollage } from "./story";
 
-export { createCollage };
+import { getEvents, verifyEvent } from "./events";
+
+export { getEvents, verifyEvent, createCollage };

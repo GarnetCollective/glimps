@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image } from "react-native";
 
 // Styles
-import styles from "../css/styles";
+import styles from "../styles";
 
 export class Loader extends React.Component {
   render() {

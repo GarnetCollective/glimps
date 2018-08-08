@@ -8,18 +8,24 @@ import { Retrieve } from "./components";
 import { NoPermissions } from "./components";
 import { Error } from "./components";
 
+import { Events } from "./components";
+import { cameraPermissions } from "./components";
+
 const App = StackNavigator(
   {
-    Home: { screen: Home },
-    Countdown: { screen: Countdown },
-    Processing: { screen: Processing },
-    Preview: { screen: Preview },
-    Retrieve: { screen: Retrieve },
-    Error: { screen: Error },
-    NoPermissions: { screen: NoPermissions }
+    CameraPermissions: { screen: cameraPermissions },
+    Home: { screen: Events }
+    // Events: { screen: Events }
+    // Home: { screen: Home },
+    // Countdown: { screen: Countdown },
+    // Processing: { screen: Processing },
+    // Preview: { screen: Preview },
+    // Retrieve: { screen: Retrieve },
+    // Error: { screen: Error },
+    // NoPermissions: { screen: NoPermissions }
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "CameraPermissions",
     headerMode: "none",
     swipeEnabled: false,
     portraitOnlyMode: true

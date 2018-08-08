@@ -5,7 +5,7 @@ import { View, Image, Text } from "react-native";
 import { Camera } from "expo";
 
 // Styles
-import styles from "../css/styles";
+import styles from "../styles";
 
 export class Preview extends React.Component {
   render() {

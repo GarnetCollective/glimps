@@ -5,7 +5,7 @@ import { View, Text } from "react-native";
 import { Camera } from "expo";
 
 // Styles
-import styles from "../css/styles";
+import styles from "../styles";
 
 // Services
 import { createCollage } from "../controllers";
