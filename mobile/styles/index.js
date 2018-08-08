@@ -87,17 +87,15 @@ export default StyleSheet.create({
   },
 
   eventsContainer: {
-    width: width,
-    height: height,
-    justifyContent: "center",
+    // width: width,
+    // height: height / 2,
     alignItems: "center",
-    bottom: height / 3.5
+    bottom: 100
   },
   eventsListContainer: {
     width: width / 1.22,
-    height: height / 1.5,
+    height: height / 1.25,
     backgroundColor: "white",
-    overflow: "scroll",
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#ccc",

@@ -1,20 +1,21 @@
 import axios from "react-native-axios";
 
-const BASE_URL = "http://6a6f54ec.ngrok.io";
+import config from "./config";
 
-const event = axios.create({ baseURL: BASE_URL });
+const event = axios.create({ baseURL: config.BASE_URL });
 
 const getEvents = async () => {
   try {
-    const events = await event.get("/events");
+    const { data } = await event.get("/api/events");
+    return data.data;
   } catch (e) {
     return e.message;
   }
 };
 
-const verifyEvent = async (id, key) => {
+const verifyEvent = async (event, key) => {
   try {
-    const event = await event.get(`/events/${id}`, { secretKey: key });
+    const verify = await event.get(`/events/${event.id}`, { secretKey: key });
   } catch (e) {
     return e.message;
   }

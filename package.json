@@ -1,10 +1,7 @@
 {
   "name": "glimps",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "https://github.com/GarnetCollective/glimps.git",
-  "author": "garnet collective",
-  "license": "MIT",
   "devDependencies": {
     "concurrently": "^3.6.1"
   },
@@ -12,6 +9,6 @@
     "dev": "cross-env NODE_ENV=development concurrently --kill-others \"yarn glimps:api\" \"yarn glimps:tiler\" \"yarn glimps:mobile\" ",
     "glimps:api": "cd api && yarn dev",
     "glimps:tiler": "cd tiler && yarn dev",
-    "glimps:mobile": "cd mobile && yarn start"
+    "glimps:mobile": "cd mobile && yarn dev"
   }
 }
