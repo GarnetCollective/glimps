@@ -1,8 +1,8 @@
 import { Events } from "./Events";
 
-import { CameraPermissions } from "./CameraPermissions";
-import { CameraCountdown } from "./CameraCountdown";
-import { CameraPreview } from "./CameraPreview";
+import CameraPermissions from "./CameraPermissions";
+import CameraCountdown from "./CameraCountdown";
+import CameraPreview from "./CameraPreview";
 
 import { StoryPreview } from "./StoryPreview";
 

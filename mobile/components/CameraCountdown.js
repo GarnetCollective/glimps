@@ -11,7 +11,7 @@ import styles from "../styles";
 import { createCollage } from "../controllers";
 
 // Components
-import { Loader } from "./Loader";
+import StoryProcessing from "./StoryProcessing";
 
 class FadeInView extends React.Component {
   state = {
@@ -45,7 +45,7 @@ class FadeInView extends React.Component {
   }
 }
 
-export class CameraCountdown extends React.Component {
+export default class CameraCountdown extends React.Component {
   state = {
     storyCountdown: false,
     startCountdown: true,
@@ -137,7 +137,7 @@ export class CameraCountdown extends React.Component {
         ...pic,
         base64: `data:image/jpg;base64,${pic.base64}`
       }));
-      this.setState({ loading: true, pictures: [] });
+      // this.setState({ loading: true, pictures: [] });
       // const { collage } = await createCollage(adjusted);
 
       navigate("StoryPreview", { dataUri: picturesUri, data: adjusted });
@@ -150,6 +150,7 @@ export class CameraCountdown extends React.Component {
     this.setState({ flash: true });
     setTimeout(() => this.setState({ flash: false }), 200);
   }
+
   displayCurrentStory = pictures =>
     pictures.map(({ uri }) => (
       <FadeInView key={uri}>
@@ -189,7 +190,7 @@ export class CameraCountdown extends React.Component {
         {/* Will display Get ready or the countdown, while the overlay is true*/}
 
         {startCountdown && (
-          <View style={styles.previewScreenOverlay}>
+          <View style={styles.cameraColorOverlay}>
             {isCountingDown ? (
               <Text style={styles.countdown}>{countdown}</Text>
             ) : (
@@ -207,7 +208,9 @@ export class CameraCountdown extends React.Component {
         )}
 
         {/* Display loader while creating story */}
-        {loading && <Loader images={{ story: pictures.map(pic => pic.uri) }} />}
+        {loading && (
+          <StoryProcessing images={{ story: pictures.map(pic => pic.uri) }} />
+        )}
       </Camera>
     );
   }

@@ -22,7 +22,7 @@ const App = StackNavigator(
     NoPermissions: { screen: NoPermissions }
   },
   {
-    initialRouteName: "CameraPermissions",
+    initialRouteName: "CameraPreview",
     headerMode: "none",
     swipeEnabled: false,
     portraitOnlyMode: true

@@ -14,38 +14,35 @@ import { getEvents, verifyEvent } from "../controllers/";
 
 import styles from "../styles";
 
-class Card extends React.Component {
-  render() {
-    const { image, name, date } = this.props;
-
-    return (
-      <View style={styles.eventCard}>
-        <View style={styles.eventCardImageContainer}>
-          <Image
-            source={{
-              uri: image
-                ? image
-                : "https://pasteboard.co/images/HyhnMiE.jpg/load",
-              cache: "force-cache"
-            }}
-            style={styles.eventImage}
-          />
-        </View>
-
-        <View style={styles.eventCardInfo}>
-          <Text style={styles.eventName}>{name}</Text>
-          <Text style={styles.eventDate}>{date}</Text>
-        </View>
+function Card(props) {
+  return (
+    <View style={styles.eventCard}>
+      <View style={styles.eventCardImageContainer}>
+        <Image
+          source={{
+            uri: props.image
+              ? props.image
+              : "https://pasteboard.co/images/HyhnMiE.jpg/load",
+            cache: "force-cache"
+          }}
+          style={styles.eventImage}
+        />
       </View>
-    );
-  }
+
+      <View style={styles.eventCardInfo}>
+        <Text style={styles.eventName}>{props.name}</Text>
+        <Text style={styles.eventDate}>{props.date}</Text>
+      </View>
+    </View>
+  );
 }
 
 export class Events extends Component {
   state = { events: [] };
-  componentDidMount = async () => {
-    await this.getEvents();
-  };
+
+  componentDidMount() {
+    this.getEvents();
+  }
 
   getEvents = async () => {
     try {
@@ -79,10 +76,10 @@ export class Events extends Component {
   header = () => (
     <Camera
       ref={ref => (this.camera = ref)}
-      style={styles.eventsHeaderCamera}
+      style={styles.headerCamera}
       type="front"
     >
-      <View style={styles.eventsHeader}>
+      <View style={styles.header}>
         <Text style={styles.eventsHeaderTitle}>Let's get started!</Text>
       </View>
     </Camera>

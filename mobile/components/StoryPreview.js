@@ -19,6 +19,18 @@ export class StoryPreview extends React.Component {
       <Image key={i} source={{ uri: uri }} style={styles.storyPreviewImage} />
     ));
 
+  header = () => (
+    <Camera
+      ref={ref => (this.camera = ref)}
+      style={styles.headerCamera}
+      type="front"
+    >
+      <View style={styles.header}>
+        <Text style={styles.eventsHeaderTitle}>Let's take a look!</Text>
+      </View>
+    </Camera>
+  );
+
   render() {
     const { dataUri, data } = this.props.navigation.state.params;
     const { navigate } = this.props.navigation;
@@ -29,38 +41,34 @@ export class StoryPreview extends React.Component {
     //   "https://pasteboard.co/images/HyhnMiE.jpg/load"
     // ];
     return (
-      <Camera
-        ref={ref => {
-          this.camera = ref;
-        }}
-        style={styles.camera}
-        type="front"
-      >
-        <View style={styles.previewScreenOverlay}>
-          <View style={styles.storyPreviewRefreshContainer}>
-            <TouchableOpacity onPress={() => navigate("CameraPreview")}>
-              <Text style={styles.storyPreviewRefreshText}>Retake</Text>
-              <Image
-                source={require("../assets/icons/refresh_white.png")}
-                style={styles.storyPreviewRefresh}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.storyPreviewShareContainer}>
-            <TouchableOpacity>
-              <Text style={styles.storyPreviewShareText}>Share</Text>
-              <Image
-                source={require("../assets/icons/share_white.png")}
-                style={styles.storyPreviewShare}
-              />
-            </TouchableOpacity>
-          </View>
-
+      <View style={styles.storyPreview}>
+        {this.header()}
+        <View style={styles.storyPreviewContainer}>
           <View style={styles.storyPreviewImageContainer}>
-            {dataUri.length > 0 && this.displayStory(dataUri)}
+            {this.displayStory(dataUri)}
+          </View>
+          <View style={styles.storyPreviewOptionsContainer}>
+            <TouchableOpacity onPress={() => navigate("CameraPreview")}>
+              <View style={styles.storyPreviewOptionButton}>
+                <Text style={styles.storyPreviewOptionText}>Retake</Text>
+                <Image
+                  source={require("../assets/icons/refresh_white.png")}
+                  style={styles.storyPreviewIcon}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={styles.storyPreviewOptionButton}>
+                <Text style={styles.storyPreviewOptionText}>Share</Text>
+                <Image
+                  source={require("../assets/icons/share_white.png")}
+                  style={styles.storyPreviewIcon}
+                />
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
-      </Camera>
+      </View>
     );
   }
 }
