@@ -5,8 +5,10 @@ import { Camera } from "expo";
 
 import styles from "../styles";
 
-export class Home extends React.Component {
+export class CameraPreview extends React.Component {
   render() {
+    // const { event } = this.props.navigation.state.params;
+    const event = { name: "spoke" };
     const { navigate } = this.props.navigation;
     return (
       <Camera
@@ -15,11 +17,11 @@ export class Home extends React.Component {
         type="front"
       >
         <View style={styles.previewScreenOverlay}>
-          <Text style={styles.titleStory}>Glimps</Text>
+          <Text style={styles.titleStory}>{event.name}</Text>
 
           <TouchableOpacity
             style={styles.circle}
-            onPress={() => navigate("Countdown")}
+            onPress={() => navigate("CameraCountdown")}
           >
             <Text style={styles.circleLabel}>Start</Text>
           </TouchableOpacity>

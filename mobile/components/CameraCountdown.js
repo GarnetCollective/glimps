@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image, Animated } from "react-native";
 
 // Dependencies
 import { Camera } from "expo";
@@ -11,21 +11,52 @@ import styles from "../styles";
 import { createCollage } from "../controllers";
 
 // Components
-import { Loader } from "./Loader.js";
-import { Error } from "./Error.js";
+import { Loader } from "./Loader";
 
-export class Countdown extends React.Component {
+class FadeInView extends React.Component {
+  state = {
+    fadeAnim: new Animated.Value(0) // Initial value for opacity: 0
+  };
+
+  componentDidMount() {
+    Animated.timing(
+      // Animate over time
+      this.state.fadeAnim, // The animated value to drive
+      {
+        toValue: 1, // Animate to opacity: 1 (opaque)
+        duration: 1000 // Make it take a while
+      }
+    ).start(); // Starts the animation
+  }
+
+  render() {
+    let { fadeAnim } = this.state;
+
+    return (
+      <Animated.View // Special animatable View
+        style={{
+          ...this.props.style,
+          opacity: fadeAnim // Bind opacity to animated value
+        }}
+      >
+        {this.props.children}
+      </Animated.View>
+    );
+  }
+}
+
+export class CameraCountdown extends React.Component {
   state = {
     storyCountdown: false,
     startCountdown: true,
     isCountingDown: false,
     picturesTaken: 0,
     pictures: [],
+    picturesUri: [],
     countdown: "",
     flash: false,
     processing: false,
-    loading: false,
-    error: false
+    loading: false
   };
 
   async componentDidMount() {
@@ -40,7 +71,6 @@ export class Countdown extends React.Component {
 
   countdown = async count => {
     let timeLeft = count;
-    // Countdown timer before picture is taken
     for (let i = 0; i < count; i++) {
       await this.waitSeconds(1);
       this.setState({ countdown: timeLeft });
@@ -50,23 +80,27 @@ export class Countdown extends React.Component {
     timeLeft == 0 && this.beginStory();
   };
 
-  beginStory = async () => {
+  beginStory = async () => await this.takeNumPictures(2);
+
+  takeNumPictures = async num => {
+    const { navigate } = this.props.navigation;
     let { picturesTaken } = this.state;
-    if (picturesTaken < 2) {
+    let waitSeconds = 3;
+    if (picturesTaken < num) {
       try {
-        this.setState({ storyCountdown: false });
         this.setState({
+          storyCountdown: false,
           startCountdown: false,
-          countdown: 2,
+          countdown: waitSeconds,
           picturesTaken: picturesTaken + 1
         });
         await this.flash();
         await this.takePicture();
-        await this.waitSeconds(1);
         this.setState({ storyCountdown: true });
-        await this.countdown(1);
+        await this.countdown(2);
       } catch (e) {
-        this.setState({ error: true });
+        console.log(e);
+        navigate("Error");
       }
     } else {
       const { pictures } = this.state;
@@ -74,50 +108,54 @@ export class Countdown extends React.Component {
         this.setState({ storyCountdown: false });
         await this.flash();
         await this.takePicture();
-        await this.waitSeconds(1);
+        this.waitSeconds(1);
         this.create(pictures);
       } catch (e) {
-        this.setState({ error: true });
+        navigate("Error");
       }
     }
   };
 
   takePicture = async () => {
-    let { pictures } = this.state;
+    const { navigate } = this.props.navigation;
+    let { pictures, picturesUri } = this.state;
     try {
       const data = await this.camera.takePictureAsync({ base64: true });
+      picturesUri.push(data.uri);
       pictures.push(data);
+      await this.waitSeconds(1);
     } catch (e) {
-      this.setState({ error: true });
+      navigate("Error");
     }
   };
 
   create = async pictures => {
-    // Send the story to the api
-    // Set loading screen to true
-    // Once story was built by api
-    // navigate to a diff component
     try {
+      const { picturesUri } = this.state;
       const { navigate } = this.props.navigation;
-      this.setState({ loading: true });
       const adjusted = pictures.map(pic => ({
         ...pic,
         base64: `data:image/jpg;base64,${pic.base64}`
       }));
-      const { collage } = await createCollage(adjusted);
+      this.setState({ loading: true, pictures: [] });
+      // const { collage } = await createCollage(adjusted);
 
-      navigate("Preview", { story: collage });
+      navigate("StoryPreview", { dataUri: picturesUri, data: adjusted });
     } catch (e) {
-      this.setState({ error: true });
+      navigate("Error");
     }
   };
 
   flash() {
     this.setState({ flash: true });
-    setTimeout(() => {
-      this.setState({ flash: false });
-    }, 200);
+    setTimeout(() => this.setState({ flash: false }), 200);
   }
+  displayCurrentStory = pictures =>
+    pictures.map(({ uri }) => (
+      <FadeInView key={uri}>
+        <Image source={{ uri: uri }} style={styles.currentStoryImage} />
+      </FadeInView>
+    ));
 
   cameraOverlay() {
     const {
@@ -127,9 +165,9 @@ export class Countdown extends React.Component {
       storyCountdown,
       countdown,
       loading,
-      pictures,
-      error
+      pictures
     } = this.state;
+
     return (
       <Camera
         ref={ref => {
@@ -140,6 +178,13 @@ export class Countdown extends React.Component {
       >
         {/* Displays the flash  animation*/}
         {flash && <View style={styles.flash} />}
+
+        {/* Display current story */}
+        {pictures.length > 0 && (
+          <View style={styles.currentStoryImageContainer}>
+            {this.displayCurrentStory(pictures)}
+          </View>
+        )}
 
         {/* Will display Get ready or the countdown, while the overlay is true*/}
 
@@ -163,9 +208,6 @@ export class Countdown extends React.Component {
 
         {/* Display loader while creating story */}
         {loading && <Loader images={{ story: pictures.map(pic => pic.uri) }} />}
-
-        {/* Error */}
-        {error && <Error />}
       </Camera>
     );
   }

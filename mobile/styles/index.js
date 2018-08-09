@@ -6,6 +6,8 @@ const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
   // Preview Camera
   camera: {
+    width: width,
+    height: height,
     flex: 1
   },
   previewScreenOverlay: {
@@ -13,7 +15,8 @@ export default StyleSheet.create({
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "rgba(171, 37, 35, 0.7)",
+    // backgroundColor: "rgba(171, 37, 35, 0.7)",
+    backgroundColor: "rgba(159, 101, 245,0.4)",
     width: width,
     height: height
   },
@@ -30,7 +33,7 @@ export default StyleSheet.create({
     color: "#fff",
     fontSize: 70,
     fontFamily: "Avenir Next",
-    fontWeight: "500"
+    fontWeight: "700"
   },
   // Countdown Camera
   countdown: {
@@ -46,12 +49,13 @@ export default StyleSheet.create({
     fontWeight: "700"
   },
   flash: {
-    flex: 1,
+    position: "absolute",
     left: 0,
     top: 0,
     backgroundColor: "rgb(255, 255, 255)",
     width: width,
-    height: height
+    height: height,
+    zIndex: 5
   },
   storyScreenOverlayCountdown: {
     flex: 1,
@@ -61,6 +65,82 @@ export default StyleSheet.create({
     // backgroundColor: "rgba(171, 37, 35, 0.7)",
     width: width,
     height: height
+  },
+  currentStoryImageContainer: {
+    top: height / 1.38,
+    // bottom: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row"
+  },
+  currentStoryImage: {
+    transform: [{ rotate: "-90deg" }],
+    // flex: 1,
+    marginHorizontal: 5,
+    height: 200,
+    width: 200
+  },
+
+  // Story preview
+  storyPreviewImageContainer: {
+    width: width / 1.6,
+    height: height / 1.4,
+    backgroundColor: "rgba(255, 255, 255,1)",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap",
+    paddingVertical: 10
+  },
+
+  storyPreviewImage: {
+    marginVertical: 5,
+    marginHorizontal: 5,
+    width: 300,
+    height: 255
+  },
+
+  storyPreviewShareContainer: {
+    position: "absolute",
+    top: height / 2.7,
+    width: width,
+    alignItems: "flex-end"
+  },
+  storyPreviewShareText: {
+    marginRight: 50,
+    marginBottom: 20,
+    fontSize: 40,
+    fontWeight: "bold",
+    color: "white",
+    fontFamily: "Avenir Next"
+  },
+  storyPreviewShare: {
+    zIndex: 20,
+    marginRight: 70,
+    height: 70,
+    width: 70
+  },
+
+  storyPreviewRefreshContainer: {
+    position: "absolute",
+    top: height / 2.7,
+    width: width,
+    alignItems: "flex-start",
+    zIndex: 10
+  },
+  storyPreviewRefreshText: {
+    marginLeft: 30,
+    marginBottom: 20,
+    fontSize: 40,
+    fontWeight: "bold",
+    color: "white",
+    fontFamily: "Avenir Next"
+  },
+  storyPreviewRefresh: {
+    zIndex: 20,
+    marginLeft: 50,
+    height: 70,
+    width: 70
   },
 
   // Events
@@ -73,7 +153,7 @@ export default StyleSheet.create({
 
   eventsHeader: {
     height: height / 2.5,
-    width: width,
+    // width: width,
     backgroundColor: "rgba(74, 66, 238, 0.7)"
   },
 
@@ -87,23 +167,29 @@ export default StyleSheet.create({
   },
 
   eventsContainer: {
-    // width: width,
-    // height: height / 2,
     alignItems: "center",
     bottom: 100
   },
   eventsListContainer: {
-    width: width / 1.22,
+    width: width / 1.15,
     height: height / 1.25,
     backgroundColor: "white",
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    paddingHorizontal: 30,
-    paddingVertical: 30
+    // borderWidth: 1,
+    // borderColor: "#ccc",
+    paddingHorizontal: 40,
+    paddingVertical: 35,
+    marginVertical: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4
   },
   eventsInfo: {
-    // flex: 1,
     flexDirection: "row",
     justifyContent: "space-between"
   },
@@ -121,23 +207,36 @@ export default StyleSheet.create({
 
   eventList: {
     flexDirection: "row",
-    paddingVertical: 30,
+    paddingTop: 15,
+    paddingBottom: 50,
     justifyContent: "space-between",
     flexWrap: "wrap"
   },
-
   eventCard: {
-    overflow: "hidden",
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#ccc",
+    // borderWidth: 1,
+    // borderColor: "#ccc",
     width: 250,
-    // marginHorizontal: 10,
-    marginVertical: 10
+    marginVertical: 10,
+    marginHorizontal: 1,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4
   },
 
+  eventCardImageContainer: {
+    overflow: "hidden",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10
+  },
   eventImage: {
     height: 150,
+    width: 250,
     resizeMode: "cover"
   },
   eventCardInfo: {
@@ -194,10 +293,5 @@ export default StyleSheet.create({
     fontSize: 50,
     color: "#fff",
     paddingTop: 50
-  },
-  startOverText: {
-    color: "#fff",
-    fontSize: 45,
-    fontWeight: "400"
   }
 });

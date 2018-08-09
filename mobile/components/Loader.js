@@ -6,13 +6,9 @@ import styles from "../styles";
 
 export class Loader extends React.Component {
   render() {
-    // Image from memory
-    // can be used for placholder while waiting
-    // to recieve collage from api
-    const { story } = this.props.images;
+    // const { story } = this.props.images;
     return (
       <View style={styles.previewScreenOverlay}>
-        {/* OG Loading screen */}
         <Text style={styles.titleStory}>Glimps</Text>
 
         <View style={styles.circle}>

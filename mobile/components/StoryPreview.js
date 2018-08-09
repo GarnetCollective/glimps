@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Image, Text } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity
+} from "react-native";
 
 // Dependencies
 import { Camera } from "expo";
@@ -7,10 +13,21 @@ import { Camera } from "expo";
 // Styles
 import styles from "../styles";
 
-export class Preview extends React.Component {
+export class StoryPreview extends React.Component {
+  displayStory = data =>
+    data.map((uri, i) => (
+      <Image key={i} source={{ uri: uri }} style={styles.storyPreviewImage} />
+    ));
+
   render() {
-    const { story } = this.props.navigation.state.params;
+    const { dataUri, data } = this.props.navigation.state.params;
     const { navigate } = this.props.navigation;
+    // const dataUri = [
+    //   "https://pasteboard.co/images/HyhnMiE.jpg/load",
+    //   "https://pasteboard.co/images/HyhnMiE.jpg/load",
+    //   "https://pasteboard.co/images/HyhnMiE.jpg/load",
+    //   "https://pasteboard.co/images/HyhnMiE.jpg/load"
+    // ];
     return (
       <Camera
         ref={ref => {
@@ -20,10 +37,28 @@ export class Preview extends React.Component {
         type="front"
       >
         <View style={styles.previewScreenOverlay}>
-          <Image source={{ uri: story }} style={styles.result} />
-          <Text style={styles.startOverText} onPress={() => navigate("Home")}>
-            Start Over
-          </Text>
+          <View style={styles.storyPreviewRefreshContainer}>
+            <TouchableOpacity onPress={() => navigate("CameraPreview")}>
+              <Text style={styles.storyPreviewRefreshText}>Retake</Text>
+              <Image
+                source={require("../assets/icons/refresh_white.png")}
+                style={styles.storyPreviewRefresh}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.storyPreviewShareContainer}>
+            <TouchableOpacity>
+              <Text style={styles.storyPreviewShareText}>Share</Text>
+              <Image
+                source={require("../assets/icons/share_white.png")}
+                style={styles.storyPreviewShare}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.storyPreviewImageContainer}>
+            {dataUri.length > 0 && this.displayStory(dataUri)}
+          </View>
         </View>
       </Camera>
     );

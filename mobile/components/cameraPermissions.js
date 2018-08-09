@@ -7,7 +7,7 @@ import { Camera, Permissions } from "expo";
 // CSS
 import styles from "../styles";
 
-export class cameraPermissions extends React.Component {
+export class CameraPermissions extends React.Component {
   state = { cameraPermission: false };
 
   componentDidMount = async () => {

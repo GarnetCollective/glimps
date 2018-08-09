@@ -20,14 +20,18 @@ class Card extends React.Component {
 
     return (
       <View style={styles.eventCard}>
-        <Image
-          source={{
-            uri: image
-              ? image
-              : "http://bit.camp/img/facebook-share-link-2018.jpg"
-          }}
-          style={styles.eventImage}
-        />
+        <View style={styles.eventCardImageContainer}>
+          <Image
+            source={{
+              uri: image
+                ? image
+                : "https://pasteboard.co/images/HyhnMiE.jpg/load",
+              cache: "force-cache"
+            }}
+            style={styles.eventImage}
+          />
+        </View>
+
         <View style={styles.eventCardInfo}>
           <Text style={styles.eventName}>{name}</Text>
           <Text style={styles.eventDate}>{date}</Text>
@@ -48,7 +52,7 @@ export class Events extends Component {
       const events = await getEvents();
       this.setState({ events: events });
     } catch (e) {
-      AlertIOS.alert(e);
+      AlertIOS.alert("Glimps", `${e}`);
     }
   };
 
@@ -62,10 +66,13 @@ export class Events extends Component {
   };
 
   verifyEventKey = async (event, key) => {
+    const { navigate } = this.props.navigation;
+
     try {
       const verifiedEvent = await verifyEvent(event, key);
+      navigate("CameraPreview", { event: event });
     } catch (e) {
-      AlertIOS.alert(e);
+      AlertIOS.alert("Glimps", `${e}`);
     }
   };
 

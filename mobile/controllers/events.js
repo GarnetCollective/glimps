@@ -9,15 +9,16 @@ const getEvents = async () => {
     const { data } = await event.get("/api/events");
     return data.data;
   } catch (e) {
-    return e.message;
+    throw new Error(e.message);
   }
 };
 
 const verifyEvent = async (event, key) => {
   try {
-    const verify = await event.get(`/events/${event.id}`, { secretKey: key });
+    // const verify = await event.get(`/events/${event.id}`, { secretKey: key });
+    return;
   } catch (e) {
-    return e.message;
+    throw new Error(e.message);
   }
 };
 
