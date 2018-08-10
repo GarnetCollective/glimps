@@ -8,7 +8,7 @@ import { Camera } from "expo";
 import styles from "../styles";
 
 // Services
-import { createCollage } from "../controllers";
+import { createCollage } from "../controllers/story";
 
 // Components
 import StoryProcessing from "./StoryProcessing";
