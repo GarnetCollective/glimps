@@ -7,10 +7,14 @@
     "start": "node ./build/main.js",
     "dev": "backpack dev",
     "build": "backpack build",
-    "postinstall": "backpack build"
+    "postinstall": "backpack build",
+    "test": "NODE_ENV=test jest --no-cache --detectOpenHandles --colors"
   },
   "devDependencies": {
-    "backpack-core": "^0.7.0"
+    "babel-jest": "^23.4.2",
+    "backpack-core": "^0.7.0",
+    "jest": "^23.4.2",
+    "supertest": "^3.1.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -23,5 +27,29 @@
     "sqlite3": "^4.0.2",
     "uuid": "^3.3.2",
     "uuid-validate": "0.0.3"
+  },
+  "jest": {
+    "bail": false,
+    "verbose": true,
+    "forceExit": true,
+    "collectCoverage": false,
+    "testURL": "http://localhost/",
+    "coverageReporters": [
+      "json",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js}",
+      "!/node_modules/*"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/(build|node_modules)/"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/(build|node_modules)/"
+    ]
   }
 }
