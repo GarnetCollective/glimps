@@ -21,6 +21,14 @@ const config = {
     database: DB_DATABASE,
     host: DB_HOST,
     dialect: "sqlite"
+  },
+  test: {
+    username: "",
+    password: "",
+    database: "glimps",
+    storage: "./glimps.sqlite",
+    dialect: "sqlite",
+    host: "localhost"
   }
 };
 
