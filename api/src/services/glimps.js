@@ -36,11 +36,13 @@ const makeGlimps = async (event, data) => {
 
 /**
  * @param {string} id
+ * @returns {Promise}
  */
 const findById = id => Glimps.findById(id);
 
 /**
  * @param {string} eventId
+ * @returns {Promise}
  */
 const findByEventId = eventId =>
   Glimps.findAll({

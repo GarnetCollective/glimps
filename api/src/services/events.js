@@ -1,4 +1,5 @@
 import uuidv4 from "uuid/v4";
+import bcrypt from "bcryptjs";
 import { format } from "date-fns";
 
 import { Event } from "../models";
@@ -24,7 +25,7 @@ const getSlug = (name, date) => {
  * @param {string} secretKey
  */
 
-const create = (
+const create = async (
   name,
   date,
   mainImageUrl = null,
@@ -33,23 +34,46 @@ const create = (
 ) => {
   const slug = getSlug(name, date);
 
-  return Event.create({
+  let hashedSecret = null;
+  if (secretKey) {
+    hashedSecret = await bcrypt.hash(secretKey, 8);
+  }
+
+  let event = await Event.create({
     id: uuidv4(),
     name: name,
     date: date,
     mainImageUrl: mainImageUrl,
     logoUrl: logoUrl,
-    secretKey: secretKey,
+    secretKey: hashedSecret,
     slug: slug
   });
+
+  return findById(event.id);
 };
 
 /**
  * @param {string} id
+ * @param {string} secretKey
  */
-const findById = id => Event.findById(id);
+const verifySecret = async (id, secretKey) => {
+  let event = await Event.findById(id);
+  let verified = await bcrypt.compare(secretKey, event.secretKey);
+  return verified ? event : false;
+};
+
+/**
+ * @param {string} id
+ * @returns {Promise<any>}
+ */
+const findById = id =>
+  Event.findById(id, { attributes: { exclude: ["secretKey"] } });
 
 const find = (limit = 10, offset = 0) =>
-  Event.findAll({ offset: offset, limit: limit });
+  Event.findAll({
+    offset: offset,
+    limit: limit,
+    attributes: { exclude: ["secretKey"] }
+  });
 
-export default { create, findById, find };
+export default { create, findById, find, verifySecret };

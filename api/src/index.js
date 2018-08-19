@@ -3,12 +3,13 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import bodyParser from "body-parser";
+import passport from "passport";
 
 const { PORT, APP_NAME, NODE_ENV } = process.env;
 
 import { sequelize } from "./models";
 
-import apiRoutes from "./routes";
+import { apiRouter, authRouter } from "./routes";
 
 const app = express();
 
@@ -24,8 +25,10 @@ app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
+app.use(passport.initialize());
 
-app.use("/api", apiRoutes);
+app.use("/api", apiRouter);
+app.use("/auth", authRouter);
 
 if (NODE_ENV !== "test") {
   app.listen(PORT, err => {
