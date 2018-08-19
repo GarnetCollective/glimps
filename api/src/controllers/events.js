@@ -32,7 +32,7 @@ const show = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  let { name, date, mainImageUrl } = req.body;
+  let { name, date, mainImageUrl, logoUrl, secretKey } = req.body;
 
   date = new Date(date);
   const isValidDate = isValid(date);
@@ -41,7 +41,13 @@ const create = async (req, res) => {
   }
 
   try {
-    const event = await eventsService.create(name, date, mainImageUrl);
+    const event = await eventsService.create(
+      name,
+      date,
+      mainImageUrl,
+      logoUrl,
+      secretKey
+    );
     return successResponse(res, event);
   } catch (e) {
     return failureResponse(res, e.message);
