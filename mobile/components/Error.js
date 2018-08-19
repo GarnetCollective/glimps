@@ -5,11 +5,11 @@ import { View, Image, Text } from "react-native";
 import { Camera } from "expo";
 
 // Styles
-import styles from "../css/styles";
+import styles from "../styles";
 
 export class Error extends React.Component {
   render() {
-    const { message } = this.props.navigation.state.params;
+    // const { message } = this.props.navigation.state.params;
     const image =
       "https://thumbs.gfycat.com/InferiorAnxiousAustralianfreshwatercrocodile-max-14mb.gif";
     return (
@@ -21,7 +21,7 @@ export class Error extends React.Component {
         type="front"
       >
         <View style={styles.previewScreenOverlay}>
-          <Image source={{ uri: image }} style={styles.result} />;
+          {/* <Image source={{ uri: image }} style={styles.result} />; */}
           <Text style={styles.resultText}>Oops an error occured</Text>
         </View>
       </Camera>

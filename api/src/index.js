@@ -13,11 +13,13 @@ import { apiRouter, authRouter } from "./routes";
 
 const app = express();
 
-sequelize
-  .sync()
-  // .sync({ force: true })
-  .then(() => console.log("> DB & Tables created."))
-  .catch(e => console.log(e.message));
+if (NODE_ENV !== "test") {
+  sequelize
+    .sync()
+    // .sync({ force: true })
+    .then(() => console.log("> DB & Tables created."))
+    .catch(e => console.log(e.message));
+}
 
 app.use(cors());
 app.use(helmet());
@@ -28,8 +30,12 @@ app.use(passport.initialize());
 app.use("/api", apiRouter);
 app.use("/auth", authRouter);
 
-app.listen(PORT, err => {
-  err && console.log(err.message);
-  console.log(`> in ${NODE_ENV}`);
-  console.log(`> ${APP_NAME} listening on port ${PORT}`);
-});
+if (NODE_ENV !== "test") {
+  app.listen(PORT, err => {
+    err && console.log(err.message);
+    console.log(`> in ${NODE_ENV}`);
+    console.log(`> ${APP_NAME} listening on port ${PORT}`);
+  });
+}
+
+export default app;
