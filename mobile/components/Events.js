@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Camera } from "expo";
 
-import { getEvents, verifyEvent } from "../controllers/";
+import { getEvents, verifyEvent } from "../controllers/events";
 
 import styles from "../styles";
 

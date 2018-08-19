@@ -20,4 +20,16 @@ const createCollage = async pictures => {
   }
 };
 
-export { createCollage };
+const createGif = async pictures => {
+  try {
+    const url = "http://7f37d942.ngrok.io";
+    const gif = await axios.post(`${url}/create`, {
+      brandImage: "http://2016.mangohacks.com/img/logo.png",
+      data: pictures
+    });
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+export { createCollage, createGif };

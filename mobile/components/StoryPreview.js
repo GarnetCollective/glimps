@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Image,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity
-} from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 
 // Dependencies
 import { Camera } from "expo";
@@ -13,7 +7,7 @@ import { Camera } from "expo";
 // Styles
 import styles from "../styles";
 
-export class StoryPreview extends React.Component {
+export default class StoryPreview extends React.Component {
   displayStory = data =>
     data.map((uri, i) => (
       <Image key={i} source={{ uri: uri }} style={styles.storyPreviewImage} />
