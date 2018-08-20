@@ -2,7 +2,7 @@ import { successResponse, failureResponse } from "./responses";
 
 import { sendText } from "../services/text";
 
-const index = async (req, res) => {
+const create = async (req, res) => {
   try {
     const { number, message } = req.body;
 
@@ -14,4 +14,4 @@ const index = async (req, res) => {
   }
 };
 
-export default { index };
+export default { create };
