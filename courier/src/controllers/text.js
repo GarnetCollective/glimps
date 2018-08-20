@@ -8,7 +8,7 @@ const create = async (req, res) => {
 
     const id = await sendText(number, message);
 
-    successResponse(res, { msg: `Message sent to ${number}`, sid: id });
+    successResponse(res, { sid: id });
   } catch (e) {
     failureResponse(res, e.message);
   }
