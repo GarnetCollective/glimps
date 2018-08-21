@@ -7,22 +7,17 @@ const smtp = mailer.createTransport({
   auth: { user: MAILER_EMAIL, pass: MAILER_PASSWORD }
 });
 
-const sendMail = (email, message) => {
-  return new Promise(async (resolve, reject) => {
-    let options = {
-      from: "<mail@glimps.app>",
-      to: email,
-      subject: "Glimps mail.",
-      text: message
-    };
+const sendMail = async (email, message) => {
+  let options = {
+    from: "<mail@glimps.app>",
+    to: email,
+    subject: "Glimps mail.",
+    text: message
+  };
 
-    smtp.sendMail(options, (err, info) => {
-      if (err) reject(err.message);
+  let { envelope } = await smtp.sendMail(options);
 
-      smtp.close();
-      resolve(info.envelope);
-    });
-  });
+  return envelope;
 };
 
 export { sendMail };

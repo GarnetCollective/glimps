@@ -6,9 +6,9 @@ const create = async (req, res) => {
   try {
     const { email, message } = req.body;
 
-    const info = await sendMail(email, message);
+    const envelope = await sendMail(email, message);
 
-    successResponse(res, info);
+    successResponse(res, envelope);
   } catch (e) {
     failureResponse(res, e.message);
   }
