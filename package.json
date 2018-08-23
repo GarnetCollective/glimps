@@ -6,9 +6,10 @@
     "concurrently": "^3.6.1"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development concurrently --kill-others \"yarn glimps:api\" \"yarn glimps:tiler\" \"yarn glimps:mobile\" ",
-    "glimps:api": "cd api && yarn dev",
-    "glimps:tiler": "cd tiler && yarn dev",
-    "glimps:mobile": "cd mobile && yarn dev"
+    "dev": "cross-env NODE_ENV=development concurrently --kill-others \"yarn glimps:api\" \"yarn glimps:tiler\" \"yarn glimps:mobile\" \"yarn glimps:giffer\"",
+    "glimps:api": "cd api && yarn start",
+    "glimps:tiler": "cd tiler && yarn start",
+    "glimps:mobile": "cd mobile && yarn dev",
+    "glimps:giffer": "cd giffer && yarn start"
   }
 }

@@ -2,27 +2,30 @@ import { StackNavigator } from "react-navigation";
 
 import { Events } from "./components";
 
-import { CameraPermissions } from "./components";
-import { CameraPreview } from "./components";
-import { CameraCountdown } from "./components";
+import CameraPermissions from "./components/CameraPermissions";
+import CameraPreview from "./components/CameraPreview";
 
-import { StoryPreview } from "./components";
+import Tiler from "./components/Tiler";
+import Giffer from "./components/Giffer";
 
-import { NoPermissions } from "./components";
-import { Error } from "./components";
+import StoryPreview from "./components/StoryPreview";
+
+import NoPermissions from "./components/NoPermissions";
+import Error from "./components";
 
 const App = StackNavigator(
   {
-    CameraPermissions: { screen: CameraPermissions },
     Home: { screen: Events },
+    CameraPermissions: { screen: CameraPermissions },
     CameraPreview: { screen: CameraPreview },
-    CameraCountdown: { screen: CameraCountdown },
+    Tiler: { screen: Tiler },
+    Giffer: { screen: Giffer },
     StoryPreview: { screen: StoryPreview },
     Error: { screen: Error },
     NoPermissions: { screen: NoPermissions }
   },
   {
-    initialRouteName: "CameraPreview",
+    initialRouteName: "Giffer",
     headerMode: "none",
     swipeEnabled: false,
     portraitOnlyMode: true

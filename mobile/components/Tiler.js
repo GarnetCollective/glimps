@@ -45,7 +45,7 @@ class FadeInView extends React.Component {
   }
 }
 
-export default class CameraCountdown extends React.Component {
+export default class Tiler extends React.Component {
   state = {
     storyCountdown: false,
     startCountdown: true,
