@@ -82,6 +82,7 @@ export default StyleSheet.create({
     // width: width,
     // height: height
   },
+
   currentStoryImageContainer: {
     top: height / 1.38,
     alignItems: "center",
@@ -97,9 +98,9 @@ export default StyleSheet.create({
 
   /* --------------------------------- */
   storyPreview: {
-    backgroundColor: "rgba(255, 255, 255,1)",
-    height
+    backgroundColor: "rgba(255, 255, 255,1)"
   },
+
   storyPreviewContainer: {
     justifyContent: "center",
     alignItems: "center",

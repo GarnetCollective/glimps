@@ -22,11 +22,14 @@ const createCollage = async pictures => {
 
 const createGif = async pictures => {
   try {
-    const url = "http://7f37d942.ngrok.io";
+    const url = "http://70afd432.ngrok.io";
     const gif = await axios.post(`${url}/create`, {
       brandImage: "http://2016.mangohacks.com/img/logo.png",
-      data: pictures
+      data: pictures,
+      eventName: "whispered"
     });
+
+    console.log(gif);
   } catch (e) {
     throw new Error(e.message);
   }

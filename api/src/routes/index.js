@@ -16,10 +16,14 @@ apiRouter.get("/events/:id", events.show);
 apiRouter.post("/events", authMiddleware, events.create);
 
 apiRouter.get("/events/:id/glimpses", eventGlimpses.index);
-apiRouter.post("/events/:id/glimpses", authMiddleware, authEventMiddleware, eventGlimpses.create);
+apiRouter.post(
+  "/events/:id/glimpses",
+  authMiddleware,
+  authEventMiddleware,
+  eventGlimpses.create
+);
 apiRouter.get("/glimps/:id", glimps.show);
 
 authRouter.post("/tokens", authTokens.create);
-
 
 export { apiRouter, authRouter };

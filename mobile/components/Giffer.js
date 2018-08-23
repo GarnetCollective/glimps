@@ -82,27 +82,24 @@ export default class Giffer extends React.Component {
 
   beginStory = async () => await this.takeNumPictures(2);
 
-
-
-
   takeNumPictures = async num => {
     const { navigate } = this.props.navigation;
     let { picturesTaken } = this.state;
     let waitSeconds = 3;
     if (picturesTaken < num) {
       try {
-        // this.setState({
-        //   storyCountdown: false,
-        //   startCountdown: false,
-        //   countdown: waitSeconds,
-        //   picturesTaken: picturesTaken + 1
-        // });
-        // await this.flash();
-        // await this.takePicture();
-        // this.setState({ storyCountdown: true });
-        // await this.countdown(2);
+        this.setState({
+          storyCountdown: false,
+          startCountdown: false,
+          countdown: waitSeconds,
+          picturesTaken: picturesTaken + 1
+        });
+        await this.flash();
         await this.takePicture();
+        this.setState({ storyCountdown: true });
+        await this.countdown(2);
       } catch (e) {
+        console.log(e);
         navigate("Error");
       }
     } else {
@@ -119,20 +116,17 @@ export default class Giffer extends React.Component {
     }
   };
 
-  takePicture = () => {
-    return new Promise(resolve => {
-      this.setState({
-        storyCountdown: false,
-        startCountdown: false,
-        countdown: waitSeconds,
-        picturesTaken: picturesTaken + 1
-      });
-      await this.flash();
-      await this.takePicture();
-      this.setState({ storyCountdown: true });
-      await this.countdown(2);
-      resolve()
-    })
+  takePicture = async () => {
+    const { navigate } = this.props.navigation;
+    let { pictures, picturesUri } = this.state;
+    try {
+      const data = await this.camera.takePictureAsync({ base64: true });
+      picturesUri.push(data.uri);
+      pictures.push(data);
+      await this.waitSeconds(1);
+    } catch (e) {
+      navigate("Error");
+    }
   };
 
   create = async pictures => {
