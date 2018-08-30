@@ -20,7 +20,7 @@ export default function Error(props) {
       type="front"
     >
       <View style={styles.previewScreenOverlay}>
-        {/* <Image source={{ uri: image }} style={styles.result} />; */}
+        <Image source={{ uri: image }} style={styles.result} />
         <Text style={styles.resultText}>Oops an error occured</Text>
       </View>
     </Camera>

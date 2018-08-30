@@ -50,6 +50,10 @@ export default StyleSheet.create({
     resizeMode: "contain"
   },
 
+  cameraPreviewLogOut: {
+    flex: 1
+  },
+
   /* --------------------------------- */
 
   countdown: {

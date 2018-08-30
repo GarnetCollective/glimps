@@ -1,5 +1,6 @@
 import { StackNavigator } from "react-navigation";
 
+import Splash from "./components/Splash";
 import { Events } from "./components/Events";
 
 import CameraPermissions from "./components/CameraPermissions";
@@ -15,7 +16,8 @@ import Error from "./components/Error";
 
 const App = StackNavigator(
   {
-    Home: { screen: Events },
+    Home: { screen: Splash },
+    Events: { screen: Events },
     CameraPermissions: { screen: CameraPermissions },
     CameraPreview: { screen: CameraPreview },
     Tiler: { screen: Tiler },
@@ -25,7 +27,7 @@ const App = StackNavigator(
     NoPermissions: { screen: NoPermissions }
   },
   {
-    initialRouteName: "Error",
+    initialRouteName: "Home",
     headerMode: "none",
     swipeEnabled: false,
     portraitOnlyMode: true

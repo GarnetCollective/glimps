@@ -40,14 +40,12 @@ function Card(props) {
 export class Events extends Component {
   state = { events: [] };
 
-  componentDidMount() {
-    this.getEvents();
-  }
+  componentDidMount = () => this.getEvents();
 
   getEvents = async () => {
     try {
       const events = await getEvents();
-      this.setState({ events: events });
+      this.setState({ events });
     } catch (e) {
       AlertIOS.alert("Glimps", `${e}`);
     }
@@ -67,9 +65,9 @@ export class Events extends Component {
 
     try {
       const verifiedEvent = await verifyEvent(event, key);
-      navigate("CameraPreview", { event: event });
+      navigate("CameraPreview", { event });
     } catch (e) {
-      AlertIOS.alert("Glimps", `${e}`);
+      AlertIOS.alert("Glimps", `Unable to verify secret for ${event.name}`);
     }
   };
 
