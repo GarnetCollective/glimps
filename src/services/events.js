@@ -29,6 +29,7 @@ const create = async (
   name,
   date,
   mainImageUrl = null,
+  mainColor = null,
   logoUrl = null,
   secretKey = null
 ) => {
@@ -41,12 +42,13 @@ const create = async (
 
   let event = await Event.create({
     id: uuidv4(),
-    name: name,
-    date: date,
-    mainImageUrl: mainImageUrl,
-    logoUrl: logoUrl,
+    name,
+    date,
+    mainImageUrl,
+    mainColor,
+    logoUrl,
     secretKey: hashedSecret,
-    slug: slug
+    slug
   });
 
   return findById(event.id);
