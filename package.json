@@ -8,7 +8,8 @@
     "dev": "backpack dev",
     "build": "backpack build",
     "postinstall": "backpack build",
-    "test": "NODE_ENV=test jest --no-cache --detectOpenHandles --colors"
+    "test": "NODE_ENV=test jest --no-cache --detectOpenHandles --colors",
+    "glimps:createToken": "node src/scripts/genToken.js"
   },
   "devDependencies": {
     "babel-jest": "^23.4.2",
