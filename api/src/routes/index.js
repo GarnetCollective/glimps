@@ -3,6 +3,7 @@ import { Router } from "express";
 import events from "../controllers/events";
 import glimps from "../controllers/glimps";
 import eventGlimpses from "../controllers/eventGlimpses";
+import textMessages from "../controllers/textMessages";
 import authTokens from "../controllers/authTokens";
 
 import authMiddleware from "../middleware/auth";
@@ -24,6 +25,7 @@ apiRouter.post(
   eventGlimpses.create
 );
 apiRouter.get("/glimps/:id", glimps.show);
+apiRouter.post("/text-messages/", authMiddleware, textMessages.create);
 
 authRouter.post("/tokens", authTokens.create);
 
