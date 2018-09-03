@@ -4,6 +4,7 @@ const EventModel = (sequelize, Sequelize) => {
     name: { type: Sequelize.STRING, allowNull: false },
     date: { type: Sequelize.DATE, allowNull: false },
     mainImageUrl: { type: Sequelize.STRING },
+    mainColor: { type: Sequelize.STRING },
     logoUrl: { type: Sequelize.STRING },
     secretKey: { type: Sequelize.STRING },
     slug: { type: Sequelize.STRING }
