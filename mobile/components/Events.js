@@ -9,12 +9,16 @@ import {
   AlertIOS
 } from "react-native";
 import { Camera } from "expo";
+import { format, parse } from "date-fns";
+import pluralize from "pluralize";
 
 import { getEvents, verifyEvent } from "../controllers/events";
 
 import styles from "../styles";
 
 function Card(props) {
+  const date = format(parse(props.date), "MMMM Do, YYYY");
+
   return (
     <View style={styles.eventCard}>
       <View style={styles.eventCardImageContainer}>
@@ -31,7 +35,7 @@ function Card(props) {
 
       <View style={styles.eventCardInfo}>
         <Text style={styles.eventName}>{props.name}</Text>
-        <Text style={styles.eventDate}>{props.date}</Text>
+        <Text style={styles.eventDate}>{date}</Text>
       </View>
     </View>
   );
@@ -83,37 +87,40 @@ export class Events extends Component {
     </Camera>
   );
 
-  events = events => (
-    <View style={styles.eventsContainer}>
-      <View style={styles.eventsListContainer}>
-        <View style={styles.eventsInfo}>
-          <Text style={styles.eventsListSelect}>Select your event</Text>
-          <Text style={styles.eventsListAvailable}>
-            {events.length} events available
-          </Text>
-        </View>
-
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.eventList}>
-            {events.map(event => {
-              return (
-                <TouchableOpacity
-                  key={event.id}
-                  onPress={this.verifyEvent.bind(this, event)}
-                >
-                  <Card
-                    image={event.mainImageUrl}
-                    name={event.name}
-                    date={event.date}
-                  />
-                </TouchableOpacity>
-              );
-            })}
+  events = events => {
+    const pluralizedEvents = pluralize("event", events.length, true);
+    return (
+      <View style={styles.eventsContainer}>
+        <View style={styles.eventsListContainer}>
+          <View style={styles.eventsInfo}>
+            <Text style={styles.eventsListSelect}>Select your event</Text>
+            <Text style={styles.eventsListAvailable}>
+              {pluralizedEvents} available
+            </Text>
           </View>
-        </ScrollView>
+
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.eventList}>
+              {events.map(event => {
+                return (
+                  <TouchableOpacity
+                    key={event.id}
+                    onPress={this.verifyEvent.bind(this, event)}
+                  >
+                    <Card
+                      image={event.mainImageUrl}
+                      name={event.name}
+                      date={event.date}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </ScrollView>
+        </View>
       </View>
-    </View>
-  );
+    );
+  };
 
   render() {
     const { events } = this.state;

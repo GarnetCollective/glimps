@@ -4,6 +4,10 @@ const Dimensions = require("Dimensions");
 const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
+  splashImage: {
+    height: height,
+    width: width
+  },
   /* --------------------------------- */
   header: {
     height: height / 2.5,
@@ -78,13 +82,8 @@ export default StyleSheet.create({
     zIndex: 5
   },
   storyScreenOverlayCountdown: {
-    // flex: 1,
-    // position: "absolute",
     alignItems: "center",
     justifyContent: "center"
-    // backgroundColor: "rgba(171, 37, 35, 0.7)",
-    // width: width,
-    // height: height
   },
 
   currentStoryImageContainer: {
@@ -94,7 +93,7 @@ export default StyleSheet.create({
     flexDirection: "row"
   },
   currentStoryImage: {
-    transform: [{ rotate: "-90deg" }],
+    // transform: [{ rotate: "90deg" }],
     marginHorizontal: 5,
     height: 200,
     width: 200

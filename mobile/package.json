@@ -6,7 +6,10 @@
     "dev": "exp start"
   },
   "dependencies": {
+    "date-fns": "^1.29.0",
     "expo": "25.0.0",
+    "expo-asset-utils": "^0.0.5",
+    "pluralize": "^7.0.0",
     "react": "16.2.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
     "react-native-axios": "^0.17.1",
@@ -17,5 +20,8 @@
     "assets": [
       "./assets/fonts/"
     ]
+  },
+  "devDependencies": {
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3"
   }
 }

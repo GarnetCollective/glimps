@@ -9,7 +9,7 @@ import CameraPreview from "./components/CameraPreview";
 import Tiler from "./components/Tiler";
 import Giffer from "./components/Giffer";
 
-import StoryPreview from "./components/StoryPreview";
+import Preview from "./components/Preview";
 
 import NoPermissions from "./components/NoPermissions";
 import Error from "./components/Error";
@@ -22,7 +22,7 @@ const App = StackNavigator(
     CameraPreview: { screen: CameraPreview },
     Tiler: { screen: Tiler },
     Giffer: { screen: Giffer },
-    StoryPreview: { screen: StoryPreview },
+    Preview: { screen: Preview },
     Error: { screen: Error },
     NoPermissions: { screen: NoPermissions }
   },

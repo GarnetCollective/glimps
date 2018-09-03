@@ -12,5 +12,6 @@
     "glimps:mobile": "cd mobile && yarn dev",
     "glimps:giffer": "cd giffer && yarn dev",
     "glimps:courier": "cd courier && yarn start"
-  }
+  },
+  "dependencies": {}
 }

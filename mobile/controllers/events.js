@@ -8,8 +8,10 @@ const eventInstance = axios.create({ baseURL: config.BASE_URL });
 
 const getEvents = async () => {
   try {
-    const { data } = await eventInstance.get("/api/events");
-    return data.data;
+    const {
+      data: { data: events }
+    } = await eventInstance.get("/api/events");
+    return events;
   } catch (e) {
     throw new Error(e.message);
   }
@@ -26,7 +28,8 @@ const verifyEvent = async (event, key) => {
 
     await AsyncStorage.setItem("EVENT_ID", event.id);
     await AsyncStorage.setItem("EVENT_LOGO", event.logoUrl);
-    await AsyncStorage.setItem("EVENT_COLOR", event.color);
+    await AsyncStorage.setItem("EVENT_MAIN_IMAGE", event.mainImageUrl);
+    await AsyncStorage.setItem("EVENT_COLOR", event.mainColor);
     await AsyncStorage.setItem("EVENT_TOKEN", token);
 
     return token;

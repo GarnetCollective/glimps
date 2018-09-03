@@ -1,49 +1,15 @@
 import React from "react";
-import { View, Text, Image, Animated } from "react-native";
+import { View, Text, Image, AsyncStorage } from "react-native";
 
-// Dependencies
 import { Camera } from "expo";
 
-// Styles
 import styles from "../styles";
 
-// Services
-import { createCollage } from "../controllers/story";
+import Processing from "./Processing";
+import Preview from "./Preview";
+import FadeInView from "./FadeInView";
 
-// Components
-import StoryProcessing from "./StoryProcessing";
-
-class FadeInView extends React.Component {
-  state = {
-    fadeAnim: new Animated.Value(0) // Initial value for opacity: 0
-  };
-
-  componentDidMount() {
-    Animated.timing(
-      // Animate over time
-      this.state.fadeAnim, // The animated value to drive
-      {
-        toValue: 1, // Animate to opacity: 1 (opaque)
-        duration: 1000 // Make it take a while
-      }
-    ).start(); // Starts the animation
-  }
-
-  render() {
-    let { fadeAnim } = this.state;
-
-    return (
-      <Animated.View // Special animatable View
-        style={{
-          ...this.props.style,
-          opacity: fadeAnim // Bind opacity to animated value
-        }}
-      >
-        {this.props.children}
-      </Animated.View>
-    );
-  }
-}
+import { createTile } from "../controllers/story";
 
 export default class Tiler extends React.Component {
   state = {
@@ -55,8 +21,7 @@ export default class Tiler extends React.Component {
     picturesUri: [],
     countdown: "",
     flash: false,
-    processing: false,
-    loading: false
+    preview: false
   };
 
   async componentDidMount() {
@@ -65,9 +30,8 @@ export default class Tiler extends React.Component {
     this.setState({ isCountingDown: true });
   }
 
-  waitSeconds = seconds => {
-    return new Promise(resolve => setTimeout(resolve, seconds * 1000));
-  };
+  waitSeconds = seconds =>
+    new Promise(resolve => setTimeout(resolve, seconds * 1000));
 
   countdown = async count => {
     let timeLeft = count;
@@ -99,17 +63,16 @@ export default class Tiler extends React.Component {
         this.setState({ storyCountdown: true });
         await this.countdown(2);
       } catch (e) {
-        console.log(e);
+        throw new Error(e);
         navigate("Error");
       }
     } else {
-      const { pictures } = this.state;
       try {
         this.setState({ storyCountdown: false });
         await this.flash();
         await this.takePicture();
         this.waitSeconds(1);
-        this.create(pictures);
+        this.display();
       } catch (e) {
         navigate("Error");
       }
@@ -129,27 +92,22 @@ export default class Tiler extends React.Component {
     }
   };
 
-  create = async pictures => {
-    try {
-      const { picturesUri } = this.state;
-      const { navigate } = this.props.navigation;
-      const adjusted = pictures.map(pic => ({
-        ...pic,
-        base64: `data:image/jpg;base64,${pic.base64}`
-      }));
-      // this.setState({ loading: true, pictures: [] });
-      // const { collage } = await createCollage(adjusted);
-
-      navigate("StoryPreview", { dataUri: picturesUri, data: adjusted });
-    } catch (e) {
-      navigate("Error");
-    }
-  };
-
   flash() {
     this.setState({ flash: true });
     setTimeout(() => this.setState({ flash: false }), 200);
   }
+
+  display = async () => {
+    try {
+      const { picturesUri } = this.state;
+      let eventLogo = await AsyncStorage.getItem("EVENT_MAIN_IMAGE");
+      picturesUri.push(eventLogo);
+
+      this.setState({ preview: true });
+    } catch (e) {
+      navigate("Error");
+    }
+  };
 
   displayCurrentStory = pictures =>
     pictures.map(({ uri }) => (
@@ -158,15 +116,39 @@ export default class Tiler extends React.Component {
       </FadeInView>
     ));
 
+  retake = () => {
+    const { navigate } = this.props.navigation;
+    navigate("CameraPreview");
+  };
+
+  share = async () => {
+    const { navigate } = this.props.navigation;
+    try {
+      const { pictures } = this.state;
+      const pics = pictures.map(pic => ({
+        ...pic,
+        base64: `data:image/jpg;base64,${pic.base64}`
+      }));
+
+      let eventId = await AsyncStorage.getItem("EVENT_ID");
+
+      const response = await createTile(eventId, pics);
+      console.log(response);
+    } catch (e) {
+      navigate("Error");
+    }
+  };
+
   cameraOverlay() {
     const {
-      isCountingDown,
       flash,
+      isCountingDown,
       startCountdown,
       storyCountdown,
       countdown,
-      loading,
-      pictures
+      preview,
+      pictures,
+      picturesUri
     } = this.state;
 
     return (
@@ -177,6 +159,11 @@ export default class Tiler extends React.Component {
         style={styles.camera}
         type="front"
       >
+        {/* Display story */}
+        {preview && (
+          <Preview data={picturesUri} retake={this.retake} share={this.share} />
+        )}
+
         {/* Displays the flash  animation*/}
         {flash && <View style={styles.flash} />}
 
@@ -209,7 +196,7 @@ export default class Tiler extends React.Component {
 
         {/* Display loader while creating story */}
         {loading && (
-          <StoryProcessing images={{ story: pictures.map(pic => pic.uri) }} />
+          <Processing images={{ story: pictures.map(pic => pic.uri) }} />
         )}
       </Camera>
     );

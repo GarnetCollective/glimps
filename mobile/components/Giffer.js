@@ -10,8 +10,7 @@ import styles from "../styles";
 // Services
 import { createGif } from "../controllers/story";
 
-// Components
-import StoryProcessing from "./StoryProcessing";
+import Processing from "./Processing";
 
 class FadeInView extends React.Component {
   state = {

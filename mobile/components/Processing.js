@@ -3,7 +3,7 @@ import { View, Text, Image } from "react-native";
 
 import styles from "../styles";
 
-export default function StoryProcessing(props) {
+export default function Processing(props) {
   const { story } = props.images;
   return (
     <View style={styles.previewScreenOverlay}>
