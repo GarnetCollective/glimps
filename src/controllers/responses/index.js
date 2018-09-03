@@ -6,4 +6,8 @@ const failureResponse = (res, data, code = 400) => {
   return res.status(code).send({ success: false, error: data });
 };
 
-export { successResponse, failureResponse };
+const emptyResponse = res => {
+  return res.status(204).send();
+};
+
+export { successResponse, failureResponse, emptyResponse };
