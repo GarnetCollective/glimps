@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { AsyncStorage } from "react-native";
 
-import Logo from "./Logo";
+import Logo from "../../Shared/Logo";
 import { Camera } from "expo";
 
-import styles from "../styles";
+import styles from "../../../styles";
 
-export default class CameraPreview extends React.Component {
+export default class EventHome extends React.Component {
   state = {
     logo:
       "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/challenge_photos/000/358/089/datas/full_width.png",
@@ -62,19 +62,23 @@ export default class CameraPreview extends React.Component {
         type="front"
       >
         <View style={colorOverlay}>
-          <TouchableOpacity onPress={() => this.clearLocalStorage()}>
-            <Logo />
-          </TouchableOpacity>
-
-          <Image source={{ uri: logo }} style={styles.cameraPreviewEventLogo} />
+          <Image source={{ uri: logo }} style={styles.eventHomeEventLogo} />
 
           <TouchableOpacity
             style={styles.startCircle}
-            onPress={() => navigate("Tiler")}
+            onPress={() => navigate("GlimpsCountdown")}
           >
             <Text style={styles.startCircleLabel}>Start</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={styles.logout}
+          onPress={() => this.clearLocalStorage()}
+        >
+          <View>
+            <Logo height="35" />
+          </View>
+        </TouchableOpacity>
       </Camera>
     );
   }

@@ -5,7 +5,6 @@ import config from "./config";
 
 const story = axios.create({ baseURL: config.BASE_URL });
 
-// Add a request interceptor
 story.interceptors.request.use(
   async config => {
     const token = await AsyncStorage.getItem("EVENT_TOKEN");
@@ -34,16 +33,4 @@ const createTile = async (eventId, pictures) => {
   }
 };
 
-const createGif = async pictures => {
-  try {
-    const gif = await axios.post(`${url}/create`, {
-      brandImage: "http://2016.mangohacks.com/img/logo.png",
-      data: pictures,
-      eventName: "whispered"
-    });
-  } catch (e) {
-    throw new Error(e.message);
-  }
-};
-
-export { createTile, createGif };
+export { createTile };
