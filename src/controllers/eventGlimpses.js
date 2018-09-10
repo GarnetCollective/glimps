@@ -5,11 +5,18 @@ import eventsService from "../services/events";
 
 const index = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id, slug } = req.query;
 
-    let event = await eventsService.findById(id);
+    let event = null;
+    if (id) {
+      event = await eventsService.findById(id);
+    }
+    if (slug) {
+      event = await eventsService.findBySlug(slug);
+    }
+
     if (!event) {
-      throw new Error("eventId is not valid");
+      throw new Error("eventId or slug is not valid");
     }
 
     let glimpses = await glimpsService.findByEventId(event.id);
@@ -17,7 +24,9 @@ const index = async (req, res) => {
       throw new Error(`no glimpes for event with eventId: ${id}`);
     }
 
-    return successResponse(res, glimpses);
+    let eventDetails = { event, glimpses };
+
+    return successResponse(res, eventDetails);
   } catch (e) {
     return failureResponse(res, e.message);
   }
