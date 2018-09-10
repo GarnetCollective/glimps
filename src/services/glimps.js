@@ -1,10 +1,10 @@
 import { Glimps } from "../models";
 import eventService from "./events";
 import uuid from "uuid/v4";
-const { COURIER_HOST } = process.env;
+const { TILER_HOST } = process.env;
 
 import axios from "axios";
-const tiler = axios.create({ baseURL: COURIER_HOST });
+const tiler = axios.create({ baseURL: TILER_HOST });
 
 /**
  * @typedef {Object} Event
@@ -49,7 +49,8 @@ const findByEventId = eventId =>
   Glimps.findAll({
     where: {
       eventId: eventId
-    }
+    },
+    order: [["updatedAt", "DESC"]]
   });
 
 /**
