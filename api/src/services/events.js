@@ -68,8 +68,20 @@ const verifySecret = async (id, secretKey) => {
  * @param {string} id
  * @returns {Promise<any>}
  */
-const findById = id =>
+const findById = async id =>
   Event.findById(id, { attributes: { exclude: ["secretKey"] } });
+
+/**
+ * @param {string} slug
+ * @returns {Promise<any>}
+ */
+const findBySlug = async slug => {
+  return Event.findOne({
+    where: { slug },
+    limit: 1,
+    attributes: { exclude: ["secretKey"] }
+  });
+};
 
 const find = (limit = 10, offset = 0) =>
   Event.findAll({
@@ -78,4 +90,4 @@ const find = (limit = 10, offset = 0) =>
     attributes: { exclude: ["secretKey"] }
   });
 
-export default { create, findById, find, verifySecret };
+export default { create, findById, findBySlug, find, verifySecret };
