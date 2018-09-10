@@ -17,7 +17,7 @@ apiRouter.get("/events", events.index);
 apiRouter.get("/events/:id", events.show);
 apiRouter.post("/events", authCreatorMiddleware, events.create);
 
-apiRouter.get("/events/:id/glimpses", eventGlimpses.index);
+apiRouter.get("/event-glimpses/", eventGlimpses.index);
 apiRouter.post(
   "/events/:id/glimpses",
   authMiddleware,
