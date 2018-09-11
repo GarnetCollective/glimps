@@ -6,7 +6,11 @@ import { createCollage } from "./tiler";
 import upload from "./upload";
 import log from "./logger";
 
-const { DEVELOPMENT, HOST = "http://localhost:3001" } = process.env;
+const {
+  DEVELOPMENT,
+  TMP_DIR = "tmp",
+  HOST = "http://localhost:3001"
+} = process.env;
 
 const cleanUp = async images => {
   return Promise.all(images.map(rm));
@@ -25,7 +29,7 @@ const rm = path => {
 
 const save = data => {
   return new Promise((resolve, reject) => {
-    img(data, "tmp", uuid(), (err, location) => {
+    img(data, TMP_DIR, uuid(), (err, location) => {
       err && reject(err);
       resolve(path_resolve(location));
     });
@@ -40,7 +44,7 @@ const createStory = async (storyImages, brandImageUrl) => {
   }
   log({ imagePaths });
 
-  let collage = await createCollage(imagePaths, brandImageUrl);
+  let collage = await createCollage(imagePaths, brandImageUrl, TMP_DIR);
   log({ collage });
   await cleanUp(imagePaths);
 
