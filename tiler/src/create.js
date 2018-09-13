@@ -6,11 +6,7 @@ import { createCollage } from "./tiler";
 import upload from "./upload";
 import log from "./logger";
 
-const {
-  DEVELOPMENT,
-  TMP_DIR = "tmp",
-  HOST = "http://localhost:3001"
-} = process.env;
+const { TMP_DIR = "tmp", HOST = "http://localhost:3001" } = process.env;
 
 const cleanUp = async images => {
   return Promise.all(images.map(rm));
@@ -86,7 +82,7 @@ const create = async (req, res) => {
 
     let story = await createStory(storyImages, brandImage);
 
-    if (DEVELOPMENT) {
+    if (__DEV__) {
       return res
         .status(200)
         .json({ success: true, collage: makeDevUrl(story.file_name) });

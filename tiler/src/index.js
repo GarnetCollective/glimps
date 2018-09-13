@@ -5,8 +5,7 @@ import bodyParser from "body-parser";
 const {
   PORT = 3001,
   TMP_DIR = "tmp",
-  APP_NAME = "TILER",
-  DEVELOPMENT
+  APP_NAME = "TILER"
 } = process.env;
 import create from "./create";
 
@@ -15,7 +14,7 @@ app.use(cors());
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
 
-if (DEVELOPMENT) {
+if (__DEV__) {
   app.use("/tmp", express.static(TMP_DIR));
 }
 
