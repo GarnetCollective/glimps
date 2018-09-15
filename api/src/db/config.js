@@ -20,7 +20,7 @@ const config = {
     password: DB_PASSWORD,
     database: DB_DATABASE,
     host: DB_HOST,
-    dialect: "sqlite"
+    dialect: "postgres"
   },
   test: {
     username: "",

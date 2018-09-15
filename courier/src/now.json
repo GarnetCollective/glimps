@@ -1,0 +1,7 @@
+{
+  "name": "glimps-courier",
+  "env": {
+    "PORT": "3001",
+    "APP_NAME": "COURIER"
+  }
+}

@@ -2,7 +2,7 @@ import "./env";
 import express from "express";
 import bodyParser from "body-parser";
 
-const { PORT = 3003, APP_NAME = courier, NODE_ENV = development } = process.env;
+const { PORT = 3003, APP_NAME = "courier", NODE_ENV = "development" } = process.env;
 
 import apiRoutes from "./routes";
 
@@ -15,7 +15,9 @@ app.use("/api", apiRoutes);
 
 app.listen(PORT, err => {
   err && console.log(err.message);
-  console.log(`> in ${NODE_ENV}`);
+  if (__DEV__) {
+    console.log(`> in ${NODE_ENV}`);
+  }
   console.log(`> ${APP_NAME} listening on port ${PORT}`);
 });
 
