@@ -103,6 +103,17 @@ export default StyleSheet.create({
   buttonText: {
     fontFamily: "Avenir Next"
   },
+
+  flash: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    backgroundColor: "rgb(255, 255, 255)",
+    width: width,
+    height: height,
+    zIndex: 5
+  },
+
   /* --------------------------------- */
 
   startCircle: {
@@ -148,15 +159,7 @@ export default StyleSheet.create({
     fontFamily: "Avenir Next",
     fontWeight: "700"
   },
-  flash: {
-    position: "absolute",
-    left: 0,
-    top: 0,
-    backgroundColor: "rgb(255, 255, 255)",
-    width: width,
-    height: height,
-    zIndex: 5
-  },
+
   storyScreenOverlayCountdown: {
     alignItems: "center",
     justifyContent: "center"
@@ -169,7 +172,6 @@ export default StyleSheet.create({
     flexDirection: "row"
   },
   currentStoryImage: {
-    // transform: [{ rotate: "90deg" }],
     marginHorizontal: 5,
     height: 200,
     width: 200
@@ -281,36 +283,9 @@ export default StyleSheet.create({
 
   /* --------------------------------- */
 
-  // previewLogo: {
-  //   paddingBottom: 20
-  // },
-
-  // processingScreenOverlay: {
-  //   flex: 1,
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   backgroundColor: "rgba(74, 66, 238, 0.7)"
-  // },
-
-  processingTitle: {
-    fontWeight: "600",
-    fontFamily: "Avenir Next",
-    fontSize: 90,
-    color: "#fff",
-    paddingBottom: 50
-  },
-
   processingGif: {
     height: 200,
     width: 200
-  },
-
-  processingText: {
-    fontWeight: "600",
-    fontFamily: "Avenir Next",
-    fontSize: 50,
-    color: "#fff",
-    paddingTop: 10
   },
 
   processingContainer: {
@@ -337,6 +312,7 @@ export default StyleSheet.create({
     elevation: 4
   },
   /* --------------------------------- */
+
   retrievalNavContainer: {
     width: width,
     alignItems: "center",
@@ -385,5 +361,85 @@ export default StyleSheet.create({
     fontFamily: "Avenir Next",
     fontSize: 18,
     marginTop: 10
+  },
+  /* --------------------------------- */
+
+  numberPadContainer: {
+    justifyContent: "center",
+    flex: 1,
+    alignItems: "center"
+  },
+
+  phonePadPreText: {
+    color: "#424242",
+    fontWeight: "600",
+    fontSize: 17,
+    paddingHorizontal: 80,
+    textAlign: "center",
+    marginTop: 40
+  },
+
+  numberPad: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center"
+  },
+
+  optionButtonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 30,
+    width: width / 3.3
+  },
+
+  currentPhoneNumberContainer: {
+    borderColor: "rgba(74, 66, 238, 1)",
+    borderBottomWidth: 2,
+    marginTop: 25,
+    marginBottom: 30
+  },
+
+  currentPhoneNumber: {
+    fontSize: 30,
+    fontWeight: "700",
+    color: "rgba(74, 66, 238, 1)",
+    paddingBottom: 5
+  },
+
+  currentPhoneNumberPlaceholderContainer: {
+    borderColor: "#424242",
+    borderBottomWidth: 2,
+    marginTop: 25,
+    marginBottom: 30,
+    paddingHorizontal: 5
+  },
+
+  currentPhoneNumberPlaceholder: {
+    fontSize: 30,
+    fontWeight: "400",
+    color: "#424242",
+    paddingBottom: 5
+  },
+
+  phoneNumberBottomRow: {
+    flexDirection: "row",
+    marginLeft: 115
+  },
+
+  phoneNumberButton: {
+    height: 50,
+    width: width / 9,
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 5
+  },
+
+  phoneNumberButtonText: {
+    fontSize: 25
+  },
+  backspace: {
+    marginLeft: -10,
+    marginTop: 11
   }
 });

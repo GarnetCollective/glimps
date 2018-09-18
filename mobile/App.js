@@ -9,6 +9,8 @@ import GlimpsPreview from "./components/Screens/GlimpsPreview";
 import GlimpsProcessing from "./components/Screens/GlimpsProcessing";
 import GlimpsRetrieval from "./components/Screens/GlimpsRetrieval";
 
+import PhonePad from "./components/Screens/GlimpsRetrieval/PhonePad";
+
 import Error from "./components/Shared/Error";
 import NoPermissions from "./components/Shared/NoPermissions";
 import CameraPermissions from "./components/Shared/CameraPermissions";
@@ -23,6 +25,7 @@ const App = StackNavigator(
     GlimpsProcessing: { screen: GlimpsProcessing },
     GlimpsRetrieval: { screen: GlimpsRetrieval },
     CameraPermissions: { screen: CameraPermissions },
+    PhonePad: { screen: PhonePad },
     Error: { screen: Error },
     NoPermissions: { screen: NoPermissions }
   },

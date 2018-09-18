@@ -138,9 +138,9 @@ export default class GlimpsCountdown extends React.Component {
 
       let eventId = await AsyncStorage.getItem("EVENT_ID");
 
-      const { collage: glimpsUri } = await createTile(eventId, pics);
+      const { glimpsUri, glimpsId } = await createTile(eventId, pics);
 
-      navigate("GlimpsRetrieval", { glimpsUri });
+      navigate("GlimpsRetrieval", { glimpsUri, glimpsId });
     } catch (e) {
       navigate("Error");
     }

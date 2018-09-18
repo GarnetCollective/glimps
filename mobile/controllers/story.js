@@ -24,7 +24,7 @@ const createTile = async (eventId, pictures) => {
     const { data } = await story.post(url, { data: pictures });
 
     if (data.success) {
-      return { collage: data.data.thumbUrl };
+      return { glimpsUri: data.data.thumbUrl, glimpsId: data.data.id };
     } else {
       throw new Error("Something went wrong.");
     }

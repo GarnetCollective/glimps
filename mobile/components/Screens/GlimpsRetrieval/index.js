@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
 import QRCode from "react-native-qrcode";
 import Button from "../../Shared/Button";
 import ProcessingCard from "../GlimpsProcessing/ProcessingCard";
@@ -31,11 +37,16 @@ function RetrievalNav(props) {
 }
 
 export default class GlimpsRetrieval extends React.Component {
+  state = { eventSlug: "" };
+  componentDidMount = async () => {
+    let eventSlug = await AsyncStorage.getItem("EVENT_SLUG");
+    this.setState({ eventSlug });
+  };
+
   render() {
     const { navigate } = this.props.navigation;
-
-    // const { glimpsUri } = this.props.navigation.state.params;
-    const glimpsUri = "http://shellhacks.net/imgs/logos/2018/heroku-logo.svg";
+    const { eventSlug } = this.state;
+    const { glimpsUri, glimpsId } = this.props.navigation.state.params;
 
     return (
       <Shell>
@@ -49,7 +60,9 @@ export default class GlimpsRetrieval extends React.Component {
             fgColor="white"
           />
           <Text style={styles.orText}>or</Text>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigate("PhonePad", { glimpsUri, glimpsId })}
+          >
             <Button
               backgroundColor="rgb(74, 66, 238)"
               width="200"
@@ -61,7 +74,10 @@ export default class GlimpsRetrieval extends React.Component {
           </TouchableOpacity>
           <View style={styles.processingInfoContainer}>
             <Text style={styles.findIt}>Also find it at</Text>
-            <Text style={styles.link}>glimps.app/shellhacks-2018</Text>
+            <Text style={styles.link}>
+              glimps.app/
+              {eventSlug}
+            </Text>
           </View>
         </ProcessingCard>
       </Shell>

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, Text } from "react-native";
+import { Text } from "react-native";
 import { format, parse } from "date-fns";
 
 import Card from "../../Shared/Card";

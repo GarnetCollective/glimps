@@ -29,6 +29,7 @@ const verifyEvent = async (event, key) => {
     await AsyncStorage.setItem("EVENT_ID", event.id);
     await AsyncStorage.setItem("EVENT_LOGO", event.logoUrl);
     await AsyncStorage.setItem("EVENT_MAIN_IMAGE", event.mainImageUrl);
+    await AsyncStorage.setItem("EVENT_SLUG", event.slug);
     await AsyncStorage.setItem("EVENT_COLOR", event.mainColor);
     await AsyncStorage.setItem("EVENT_TOKEN", token);
 
