@@ -1,9 +1,10 @@
 import { Glimps } from "../models";
 import eventService from "./events";
 import uuid from "uuid/v4";
+const { COURIER_HOST } = process.env;
 
 import axios from "axios";
-const tiler = axios.create({ baseURL: "http://localhost:3001" });
+const tiler = axios.create({ baseURL: COURIER_HOST });
 
 /**
  * @typedef {Object} Event

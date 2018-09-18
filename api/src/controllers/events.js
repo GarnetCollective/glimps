@@ -7,7 +7,7 @@ import eventsService from "../services/events";
 
 const index = async (req, res) => {
   try {
-    const { limit, offset } = req.params;
+    const { limit, offset } = req.query;
     let events = await eventsService.find(limit, offset);
     return successResponse(res, events);
   } catch (e) {
@@ -32,7 +32,7 @@ const show = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  let { name, date, mainImageUrl, logoUrl, secretKey } = req.body;
+  let { name, date, mainImageUrl, mainColor, logoUrl, secretKey } = req.body;
 
   date = new Date(date);
   const isValidDate = isValid(date);
@@ -45,6 +45,7 @@ const create = async (req, res) => {
       name,
       date,
       mainImageUrl,
+      mainColor,
       logoUrl,
       secretKey
     );
