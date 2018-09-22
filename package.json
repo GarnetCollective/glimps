@@ -23,6 +23,7 @@
     "cors": "^2.8.4",
     "date-fns": "^1.29.0",
     "dotenv": "^6.0.0",
+    "emoji-text": "^0.2.6",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "jsonwebtoken": "^8.3.0",
