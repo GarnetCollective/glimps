@@ -1,8 +1,19 @@
 import uuidv4 from "uuid/v4";
 import bcrypt from "bcryptjs";
 import { format } from "date-fns";
+import { convert } from "emoji-text";
 
 import { Event } from "../models";
+
+/**
+ * @param {string} slug
+ */
+
+const sanitizeSlug = slug =>
+  slug
+    .replace(/[!@#$%^&*'/:()-?]/g, "")
+    .replace(/\s+/g, "-")
+    .toLowerCase();
 
 /**
  * @param {string} name
@@ -10,7 +21,8 @@ import { Event } from "../models";
  */
 
 const getSlug = (name, date) => {
-  name = name.toLowerCase();
+  name = convert(name, { delimiter: "" });
+  name = sanitizeSlug(name);
   date = format(date, "MMDDYYYY");
 
   return `${name}-${date}`;
