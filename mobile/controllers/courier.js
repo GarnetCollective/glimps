@@ -9,7 +9,7 @@ courier.interceptors.request.use(
   async config => {
     const token = await AsyncStorage.getItem("EVENT_TOKEN");
 
-    if (token) config.headers = { Authorization: "bearer " + token };
+    if (token) config.headers = { Authorization: "Bearer " + token };
 
     return config;
   },
@@ -18,15 +18,10 @@ courier.interceptors.request.use(
   }
 );
 
-const sendText = async (phoneNum, glimpsId) => {
-  console.log({ phoneNum, glimpsId });
-  const url = `/text-messages`;
-
-  try {
-    courier.post(url, { phoneNum, glimpsId });
-  } catch (e) {
-    throw new Error(e.message);
-  }
+const sendText = (phoneNumber, glimpsId) => {
+  const url = `/api/text-messages`;
+  courier.post(url, { phoneNumber, glimpsId });
+  return;
 };
 
 export { sendText };

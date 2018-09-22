@@ -8,9 +8,9 @@
     "version": "1.0.0",
     "orientation": "landscape",
     "primaryColor": "#f7f7f7",
-    "icon": "./assets/images/glimps_pl.png",
+    "icon": "./assets/images/glimps_logo.png",
     "splash": {
-      "image": "./assets/images/glimps_placeholder.jpg",
+      "image": "./assets/images/glimps_landing.jpg",
       "resizeMode": "cover"
     },
     "ios": {

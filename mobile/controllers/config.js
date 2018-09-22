@@ -1,3 +1,3 @@
-const config = { BASE_URL: "http://c6e78592.ngrok.io" };
+const config = { BASE_URL: "http://50b9214a.ngrok.io" };
 
 export default config;

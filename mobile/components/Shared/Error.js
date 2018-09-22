@@ -7,7 +7,7 @@ export default function Error(props) {
   return (
     <View>
       <Image
-        source={require("../../assets/images/glimps_placeholder.jpg")}
+        source={require("../../assets/images/glimps_error.png")}
         style={styles.splashImage}
       />
     </View>

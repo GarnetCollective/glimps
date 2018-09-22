@@ -120,7 +120,7 @@ export default class GlimpsCountdown extends React.Component {
 
   retake = () => {
     const { navigate } = this.props.navigation;
-    navigate("CameraPreview");
+    navigate("Home");
   };
 
   share = async () => {
