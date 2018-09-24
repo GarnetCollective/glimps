@@ -49,7 +49,8 @@ const findByEventId = eventId =>
   Glimps.findAll({
     where: {
       eventId: eventId
-    }
+    },
+    order: [["updatedAt", "DESC"]]
   });
 
 /**

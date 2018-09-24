@@ -1,6 +1,6 @@
 import Jimp from "jimp";
 import uuid from "uuid/v1";
-import { resolve as path_resolve } from "path";
+import { resolve as pathResolve, join as pathJoin } from "path";
 
 const WIDTH = 1024;
 const HEIGHT = 768;
@@ -34,11 +34,11 @@ const calculateDims = () => {
   };
 };
 
-const getDestInfo = () => {
+const getDestInfo = outpath => {
   const fileName = `c_${uuid()}.jpg`;
   return {
     file_name: fileName,
-    file_path: path_resolve(`tmp/${fileName}`)
+    file_path: pathResolve(pathJoin(outpath, `${fileName}`))
   };
 };
 
@@ -104,13 +104,13 @@ const getResizedImage = (image, new_width, new_height) => {
  * @param {string} brand
  * @returns {Promise<{file_name: string, file_path: string}>}
  */
-export const createCollage = async (files, brand) => {
+export const createCollage = async (files, brand, outpath = "tmp") => {
   const paths = [...files, brand];
-  const dest = getDestInfo();
+  const dest = getDestInfo(outpath);
   try {
     let { image_width, image_height } = calculateDims();
     let coords = calculateCoords(image_width, image_height, PADDING);
-    let canvas = await makeImg(WIDTH, HEIGHT, BORDER_COLORS.black);
+    let canvas = await makeImg(WIDTH, HEIGHT, BORDER_COLORS.white);
 
     for (var idx = 0; idx < paths.length; idx++) {
       let path = paths[idx];
