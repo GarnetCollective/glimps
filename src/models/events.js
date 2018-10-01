@@ -1,5 +1,5 @@
 const EventModel = (sequelize, Sequelize) => {
-  return sequelize.define("event", {
+  return sequelize.define("events", {
     id: { type: Sequelize.UUID, primaryKey: true, validate: { isUUID: 4 } },
     name: { type: Sequelize.STRING, allowNull: false },
     date: { type: Sequelize.DATE, allowNull: false },
