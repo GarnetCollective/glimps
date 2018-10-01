@@ -7,19 +7,9 @@ import passport from "passport";
 
 const { PORT, APP_NAME, NODE_ENV } = process.env;
 
-import { sequelize } from "./models";
-
 import { apiRouter, authRouter } from "./routes";
 
 const app = express();
-
-if (NODE_ENV !== "test") {
-  sequelize
-    .sync()
-    // .sync({ force: true })
-    .then(() => console.log("> DB & Tables created."))
-    .catch(e => console.log(e.message));
-}
 
 app.use(cors());
 app.use(helmet());
