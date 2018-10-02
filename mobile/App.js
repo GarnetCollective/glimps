@@ -1,34 +1,41 @@
 import { StackNavigator } from "react-navigation";
 
-import { Events } from "./components";
+import Splash from "./components/Screens/Splash";
+import Events from "./components/Screens/Events";
+import EventHome from "./components/Screens/EventHome";
 
-import CameraPermissions from "./components/CameraPermissions";
-import CameraPreview from "./components/CameraPreview";
+import GlimpsCountdown from "./components/Screens/GlimpsCountdown";
+import GlimpsPreview from "./components/Screens/GlimpsPreview";
+import GlimpsProcessing from "./components/Screens/GlimpsProcessing";
+import GlimpsRetrieval from "./components/Screens/GlimpsRetrieval";
 
-import Tiler from "./components/Tiler";
-import Giffer from "./components/Giffer";
+import PhonePad from "./components/Screens/GlimpsRetrieval/PhonePad";
 
-import StoryPreview from "./components/StoryPreview";
-
-import NoPermissions from "./components/NoPermissions";
-import Error from "./components";
+import Error from "./components/Shared/Error";
+import NoPermissions from "./components/Shared/NoPermissions";
+import CameraPermissions from "./components/Shared/CameraPermissions";
 
 const App = StackNavigator(
   {
-    Home: { screen: Events },
+    Home: { screen: Splash },
+    Events: { screen: Events },
+    EventHome: { screen: EventHome },
+    GlimpsCountdown: { screen: GlimpsCountdown },
+    GlimpsPreview: { screen: GlimpsPreview },
+    GlimpsProcessing: { screen: GlimpsProcessing },
+    GlimpsRetrieval: { screen: GlimpsRetrieval },
     CameraPermissions: { screen: CameraPermissions },
-    CameraPreview: { screen: CameraPreview },
-    Tiler: { screen: Tiler },
-    Giffer: { screen: Giffer },
-    StoryPreview: { screen: StoryPreview },
+    PhonePad: { screen: PhonePad },
     Error: { screen: Error },
     NoPermissions: { screen: NoPermissions }
   },
   {
-    initialRouteName: "Giffer",
+    initialRouteName: "Home",
     headerMode: "none",
-    swipeEnabled: false,
-    portraitOnlyMode: true
+    navigationOptions: {
+      swipeEnabled: false,
+      gesturesEnabled: false
+    }
   }
 );
 

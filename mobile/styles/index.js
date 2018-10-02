@@ -4,7 +4,66 @@ const Dimensions = require("Dimensions");
 const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
-  /* --------------------------------- */
+  splashImage: {
+    height: height,
+    width: width
+  },
+
+  shell: {
+    backgroundColor: "rgb(255, 255, 255)",
+    height: height
+  },
+
+  sheet: {
+    alignItems: "center",
+    bottom: 140
+  },
+
+  sheetContent: {
+    borderRadius: 10,
+    paddingHorizontal: 40,
+    paddingVertical: 35,
+    marginVertical: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4
+  },
+
+  card: {
+    borderRadius: 10,
+    marginVertical: 10,
+    marginHorizontal: 1,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4
+  },
+
+  cardImageContainer: {
+    overflow: "hidden",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10
+  },
+
+  cardImage: {
+    height: 150,
+    width: 250,
+    resizeMode: "cover"
+  },
+  cardInfo: {
+    marginLeft: 20,
+    paddingVertical: 10
+  },
+
   header: {
     height: height / 2.5,
     backgroundColor: "rgba(74, 66, 238, 0.7)"
@@ -14,6 +73,14 @@ export default StyleSheet.create({
     height: height / 2.5
   },
 
+  headerTitle: {
+    textAlign: "center",
+    marginTop: 80,
+    fontSize: 45,
+    fontWeight: "bold",
+    color: "white",
+    fontFamily: "Avenir Next"
+  },
   camera: {
     width: width,
     height: height,
@@ -24,6 +91,27 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+
+  button: {
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row"
+  },
+
+  buttonText: {
+    fontFamily: "Avenir Next"
+  },
+
+  flash: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    backgroundColor: "rgb(255, 255, 255)",
+    width: width,
+    height: height,
+    zIndex: 5
   },
 
   /* --------------------------------- */
@@ -44,10 +132,17 @@ export default StyleSheet.create({
     fontWeight: "bold"
   },
 
-  cameraPreviewEventLogo: {
-    height: height / 2.5,
-    width: width / 2.5,
-    resizeMode: "contain"
+  eventHomeEventLogo: {
+    height: height / 3,
+    width: width / 3,
+    resizeMode: "contain",
+    marginBottom: 30
+  },
+
+  logout: {
+    bottom: 15,
+    left: -40,
+    position: "absolute"
   },
 
   /* --------------------------------- */
@@ -64,24 +159,12 @@ export default StyleSheet.create({
     fontFamily: "Avenir Next",
     fontWeight: "700"
   },
-  flash: {
-    position: "absolute",
-    left: 0,
-    top: 0,
-    backgroundColor: "rgb(255, 255, 255)",
-    width: width,
-    height: height,
-    zIndex: 5
-  },
+
   storyScreenOverlayCountdown: {
-    // flex: 1,
-    // position: "absolute",
     alignItems: "center",
     justifyContent: "center"
-    // backgroundColor: "rgba(171, 37, 35, 0.7)",
-    // width: width,
-    // height: height
   },
+
   currentStoryImageContainer: {
     top: height / 1.38,
     alignItems: "center",
@@ -89,7 +172,6 @@ export default StyleSheet.create({
     flexDirection: "row"
   },
   currentStoryImage: {
-    transform: [{ rotate: "-90deg" }],
     marginHorizontal: 5,
     height: 200,
     width: 200
@@ -97,13 +179,13 @@ export default StyleSheet.create({
 
   /* --------------------------------- */
   storyPreview: {
-    backgroundColor: "rgba(255, 255, 255,1)",
-    height
+    backgroundColor: "rgba(255, 255, 255,1)"
   },
+
   storyPreviewContainer: {
     justifyContent: "center",
     alignItems: "center",
-    bottom: 100
+    bottom: 130
   },
   storyPreviewImageContainer: {
     width: 530,
@@ -132,15 +214,15 @@ export default StyleSheet.create({
     height: 188
   },
 
-  storyPreviewOptionsContainer: {
-    marginTop: 20,
+  shareContainer: {
+    marginTop: 30,
     width: 530,
     height: 100,
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-around"
   },
-  storyPreviewOptionButton: {
+  shareButton: {
     backgroundColor: "rgba(74, 66, 238, 1)",
     borderRadius: 50,
     width: width / 5,
@@ -149,56 +231,20 @@ export default StyleSheet.create({
     alignItems: "center",
     flexDirection: "row"
   },
-  storyPreviewOptionText: {
+  shareButtonText: {
     color: "rgb(255,255,255)",
     fontSize: 25,
     fontWeight: "bold",
     fontFamily: "Avenir Next",
     marginHorizontal: 15
   },
-  storyPreviewIcon: {
+  shareButtonIcon: {
     height: 25,
     width: 25,
     resizeMode: "contain"
   },
   /* --------------------------------- */
 
-  events: {
-    backgroundColor: "rgb(255, 255, 255)"
-  },
-
-  eventsHeaderTitle: {
-    textAlign: "center",
-    marginTop: 100,
-    fontSize: 60,
-    fontWeight: "bold",
-    color: "white",
-    fontFamily: "Avenir Next"
-  },
-
-  eventsContainer: {
-    alignItems: "center",
-    bottom: 100
-  },
-  eventsListContainer: {
-    width: width / 1.15,
-    height: height / 1.25,
-    backgroundColor: "white",
-    borderRadius: 10,
-    // borderWidth: 1,
-    // borderColor: "#ccc",
-    paddingHorizontal: 40,
-    paddingVertical: 35,
-    marginVertical: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4
-  },
   eventsInfo: {
     flexDirection: "row",
     justifyContent: "space-between"
@@ -206,11 +252,11 @@ export default StyleSheet.create({
   eventsListSelect: {
     fontWeight: "bold",
     fontFamily: "Avenir Next",
-    fontSize: 30
+    fontSize: 25
   },
   eventsListAvailable: {
     fontFamily: "Avenir Next",
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "600",
     color: "#404040"
   },
@@ -222,13 +268,40 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     flexWrap: "wrap"
   },
-  eventCard: {
+
+  eventName: {
+    fontFamily: "Avenir Next",
+    fontSize: 15,
+    fontWeight: "bold"
+  },
+  eventDate: {
+    fontFamily: "Avenir Next",
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#404040"
+  },
+
+  /* --------------------------------- */
+
+  processingGif: {
+    height: 200,
+    width: 200
+  },
+
+  processingContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+
+  processingCard: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 170,
+    width: width / 2.35,
+    height: height / 1.4,
+    backgroundColor: "white",
     borderRadius: 10,
-    // borderWidth: 1,
-    // borderColor: "#ccc",
-    width: 250,
-    marginVertical: 10,
-    marginHorizontal: 1,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -238,59 +311,135 @@ export default StyleSheet.create({
     shadowRadius: 2.62,
     elevation: 4
   },
+  /* --------------------------------- */
 
-  eventCardImageContainer: {
-    overflow: "hidden",
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10
+  retrievalNavContainer: {
+    width: width,
+    alignItems: "center",
+    position: "absolute"
   },
-  eventImage: {
-    height: 150,
-    width: 250,
-    resizeMode: "cover"
+  retrievalNav: {
+    top: 100,
+    flex: 1,
+    width: width / 2.35,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
   },
-  eventCardInfo: {
-    paddingLeft: 20,
-    paddingTop: 20,
-    paddingBottom: 20
-  },
-  eventName: {
-    fontFamily: "Avenir Next",
+  retrievalNavText: {
     fontSize: 20,
-    fontWeight: "bold"
-  },
-  eventDate: {
+    color: "#FFF",
     fontFamily: "Avenir Next",
-    fontSize: 15,
+    fontWeight: "700"
+  },
+  scanItText: {
     fontWeight: "700",
-    color: "#404040"
+    fontFamily: "Avenir Next",
+    fontSize: 30,
+    marginBottom: 15
   },
-
-  /* --------------------------------- */
-
-  titleStory: {
+  orText: {
     fontWeight: "600",
     fontFamily: "Avenir Next",
-    fontSize: 90,
-    color: "#fff",
-    paddingBottom: 50
+    fontSize: 25,
+    marginBottom: 15,
+    marginTop: 15
   },
-  titleBoard: {
+  processingInfoContainer: {
+    marginTop: 30,
+    alignItems: "center"
+  },
+  findIt: {
+    fontWeight: "600",
+    color: "#555555",
+    fontFamily: "Avenir Next",
+    fontSize: 18
+  },
+  link: {
+    fontWeight: "700",
+    color: "#323332",
+    fontFamily: "Avenir Next",
+    fontSize: 18,
+    marginTop: 10
+  },
+  /* --------------------------------- */
+
+  numberPadContainer: {
+    justifyContent: "center",
+    flex: 1,
+    alignItems: "center"
+  },
+
+  phonePadPreText: {
+    color: "#424242",
+    fontWeight: "600",
+    fontSize: 17,
+    paddingHorizontal: 80,
+    textAlign: "center",
+    marginTop: 40
+  },
+
+  numberPad: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center"
+  },
+
+  optionButtonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 30,
+    width: width / 3.3
+  },
+
+  currentPhoneNumberContainer: {
+    borderColor: "rgba(74, 66, 238, 1)",
+    borderBottomWidth: 2,
+    marginTop: 25,
+    marginBottom: 30
+  },
+
+  currentPhoneNumber: {
+    fontSize: 30,
+    fontWeight: "700",
+    color: "rgba(74, 66, 238, 1)",
+    paddingBottom: 5
+  },
+
+  currentPhoneNumberPlaceholderContainer: {
+    borderColor: "#424242",
+    borderBottomWidth: 2,
+    marginTop: 25,
+    marginBottom: 30,
+    paddingHorizontal: 5
+  },
+
+  currentPhoneNumberPlaceholder: {
+    fontSize: 30,
     fontWeight: "400",
-    fontFamily: "Avenir Next",
-    color: "#fff"
+    color: "#424242",
+    paddingBottom: 5
   },
-  processingImage: {
-    height: 150,
-    width: 150
-  },
-  processingText: {
-    fontWeight: "600",
-    fontFamily: "Avenir Next",
-    fontSize: 50,
-    color: "#fff",
-    paddingTop: 50
-  }
 
-  /* --------------------------------- */
+  phoneNumberBottomRow: {
+    flexDirection: "row",
+    marginLeft: 115
+  },
+
+  phoneNumberButton: {
+    height: 50,
+    width: width / 9,
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 5
+  },
+
+  phoneNumberButtonText: {
+    fontSize: 25
+  },
+  backspace: {
+    marginLeft: -10,
+    marginTop: 11
+  }
 });

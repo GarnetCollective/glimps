@@ -1,35 +1,36 @@
 import axios from "react-native-axios";
+import { AsyncStorage } from "react-native";
 
 import config from "./config";
 
 const story = axios.create({ baseURL: config.BASE_URL });
 
-const createCollage = async pictures => {
-  const eventId = "2a50ee1a-6add-419e-ae8a-da6621e035d5";
+story.interceptors.request.use(
+  async config => {
+    const token = await AsyncStorage.getItem("EVENT_TOKEN");
+
+    if (token) config.headers = { Authorization: "Bearer " + token };
+
+    return config;
+  },
+  err => {
+    return Promise.reject(err);
+  }
+);
+
+const createTile = async (eventId, pictures) => {
   const url = `/api/events/${eventId}/glimpses`;
   try {
     const { data } = await story.post(url, { data: pictures });
 
     if (data.success) {
-      return { collage: data.data.thumbUrl };
+      return { glimpsUri: data.data.thumbUrl, glimpsId: data.data.id };
     } else {
-      return { collage: "https://bit.ly/2OJZZPa" };
+      throw new Error("Something went wrong.");
     }
   } catch (e) {
     throw new Error(e.message);
   }
 };
 
-const createGif = async pictures => {
-  try {
-    const url = "http://7f37d942.ngrok.io";
-    const gif = await axios.post(`${url}/create`, {
-      brandImage: "http://2016.mangohacks.com/img/logo.png",
-      data: pictures
-    });
-  } catch (e) {
-    throw new Error(e.message);
-  }
-};
-
-export { createCollage, createGif };
+export { createTile };

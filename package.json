@@ -10,6 +10,8 @@
     "glimps:api": "cd api && yarn start",
     "glimps:tiler": "cd tiler && yarn start",
     "glimps:mobile": "cd mobile && yarn dev",
-    "glimps:giffer": "cd giffer && yarn start"
-  }
+    "glimps:giffer": "cd giffer && yarn dev",
+    "glimps:courier": "cd courier && yarn start"
+  },
+  "dependencies": {}
 }
