@@ -30,7 +30,7 @@ const App = StackNavigator(
     NoPermissions: { screen: NoPermissions }
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Error",
     headerMode: "none",
     navigationOptions: {
       swipeEnabled: false,

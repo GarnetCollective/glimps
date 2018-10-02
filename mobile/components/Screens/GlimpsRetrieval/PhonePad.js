@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, AlertIOS, Image } from "react-native";
+import { View, Text, TouchableOpacity, AlertIOS } from "react-native";
 
 import Shell from "../../Shared/Shell";
 import ProcessingCard from "../../Shared/ProcessingCard";
@@ -45,8 +45,41 @@ function NumberPad(props) {
   );
 }
 
+function RetrievalNav(props) {
+  return (
+    <View style={styles.retrievalNavContainer}>
+      <View style={styles.retrievalNav}>
+        <Text style={styles.retrievalNavText}>
+          Starting over in {props.timeLeft} seconds
+        </Text>
+        <TouchableOpacity onPress={props.retake}>
+          <Button
+            borderColor="#FFF"
+            borderWidth="2.5"
+            backgroundColor="transparent"
+            width="140"
+            height="45"
+            text="Take another"
+            textSize="15"
+            textWeight="700"
+          />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
 export default class PhonePad extends React.Component {
-  state = { currentPhoneNumber: "" };
+  state = { currentPhoneNumber: "", timeLeft: 30 };
+
+  componentDidMount = () => setInterval(this.countdown, 1000);
+
+  countdown = () => {
+    const { navigate } = this.props.navigation;
+    const { timeLeft } = this.state;
+    timeLeft == 1 && navigate("Home");
+    this.setState({ timeLeft: timeLeft - 1 });
+  };
 
   formatToPhone = num => {
     const input = num.replace(/\D/g, "").substring(0, 10);
@@ -96,26 +129,12 @@ export default class PhonePad extends React.Component {
     const { navigate, goBack } = this.props.navigation;
     let { glimpsUri, glimpsId } = this.props.navigation.state.params;
 
-    const { currentPhoneNumber } = this.state;
+    const { currentPhoneNumber, timeLeft } = this.state;
 
     return (
       <Shell>
-        <View style={styles.retrievalNavContainer}>
-          <View style={styles.retrievalNav}>
-            <TouchableOpacity onPress={() => navigate("Home")}>
-              <Button
-                borderColor="#FFF"
-                borderWidth="2"
-                backgroundColor="transparent"
-                width="140"
-                height="45"
-                text="Take another"
-                textSize="15"
-                textWeight="700"
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
+        <RetrievalNav retake={() => navigate("Home")} timeLeft={timeLeft} />
+
         <ProcessingCard input={num => this.handleInput(num)}>
           <View style={styles.numberPadContainer}>
             <Text style={styles.phonePadPreText}>
