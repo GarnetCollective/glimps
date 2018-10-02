@@ -1,5 +1,4 @@
 import axios from "react-native-axios";
-
 import { AsyncStorage } from "react-native";
 
 import config from "./config";
@@ -17,6 +16,10 @@ const getEvents = async () => {
   }
 };
 
+/**
+ * @param { string } event
+ * @param { string } key
+ */
 const verifyEvent = async (event, key) => {
   try {
     let {

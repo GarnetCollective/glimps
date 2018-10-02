@@ -2,7 +2,7 @@ import React from "react";
 import { Image } from "react-native";
 
 import Shell from "../../Shared/Shell";
-import ProcessingCard from "../GlimpsProcessing/ProcessingCard";
+import ProcessingCard from "../../Shared/ProcessingCard";
 
 import styles from "../../../styles";
 

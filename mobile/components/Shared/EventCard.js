@@ -2,9 +2,9 @@ import React from "react";
 import { Text } from "react-native";
 import { format, parse } from "date-fns";
 
-import Card from "../../Shared/Card";
+import Card from "./Card";
 
-import styles from "../../../styles";
+import styles from "../../styles";
 
 export default function EventCard(props) {
   const date = format(parse(props.date), "MMMM Do, YYYY");

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, AlertIOS, Image } from "react-native";
 
 import Shell from "../../Shared/Shell";
-import ProcessingCard from "../GlimpsProcessing/ProcessingCard";
+import ProcessingCard from "../../Shared/ProcessingCard";
 import Button from "../../Shared/Button";
 import Backspace from "../../Shared/Backspace";
 

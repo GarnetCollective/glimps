@@ -33,7 +33,7 @@ export default class GlimpsCountdown extends React.Component {
   }
 
   waitSeconds = seconds =>
-    new Promise(resolve => setTimeout(resolve, seconds * 1000));
+    new Promise(resolve => setTimeout(resolve, seconds * 600));
 
   countdown = async count => {
     let timeLeft = count;

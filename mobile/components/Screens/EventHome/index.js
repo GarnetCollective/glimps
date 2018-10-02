@@ -36,8 +36,7 @@ export default class EventHome extends React.Component {
     g = parseInt(hex.substring(2, 4), 16);
     b = parseInt(hex.substring(4, 6), 16);
 
-    result = "rgba(" + r + "," + g + "," + b + "," + opacity / 100 + ")";
-    return result;
+    return `rgba(${r},${g},${b},${opacity / 100})`;
   }
 
   clearLocalStorage = async () => {

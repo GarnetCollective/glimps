@@ -12,7 +12,7 @@ import pluralize from "pluralize";
 
 import Shell from "../../Shared/Shell";
 import Sheet from "../../Shared/Sheet";
-import EventCard from "./EventCard";
+import EventCard from "../../Shared/EventCard";
 
 import { getEvents, verifyEvent } from "../../../controllers/events";
 
