@@ -24,7 +24,7 @@ const tiler = axios.create({ baseURL: TILER_HOST });
 const makeGlimps = async (event, data) => {
   try {
     const glimps = await tiler.post("/create", {
-      eventName: event.name,
+      eventName: event.slug,
       brandImage: event.mainImageUrl,
       story: data
     });
