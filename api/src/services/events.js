@@ -12,6 +12,7 @@ import { Event } from "../models";
 const sanitizeSlug = slug =>
   slug
     .trim()
+    .replace(/[^a-zA-Z ]/g, "")
     .replace(/[^a-zA-Z0-9 -]/g, "")
     .replace(/\s+/g, "-")
     .toLowerCase();
