@@ -1,3 +1,3 @@
-const config = { BASE_URL: "http://a1dbda8b.ngrok.io" };
+const config = { BASE_URL: "https://api.glimps.app" };
 
 export default config;

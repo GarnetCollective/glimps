@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  AsyncStorage
-} from "react-native";
+import { View, Text, TouchableOpacity, AsyncStorage } from "react-native";
 import QRCode from "react-native-qrcode";
 import Button from "../../Shared/Button";
 import ProcessingCard from "../../Shared/ProcessingCard";
@@ -18,9 +12,6 @@ function RetrievalNav(props) {
   return (
     <View style={styles.retrievalNavContainer}>
       <View style={styles.retrievalNav}>
-        <Text style={styles.retrievalNavText}>
-          Starting over in {props.timeLeft} seconds
-        </Text>
         <TouchableOpacity onPress={props.retake}>
           <Button
             borderColor="#FFF"
@@ -39,32 +30,20 @@ function RetrievalNav(props) {
 }
 
 export default class GlimpsRetrieval extends React.Component {
-  state = { eventSlug: "", timeLeft: 30 };
+  state = { eventSlug: "" };
   componentDidMount = async () => {
     let eventSlug = await AsyncStorage.getItem("EVENT_SLUG");
     this.setState({ eventSlug });
-
-    setInterval(this.countdown, 1000);
-  };
-
-  countdown = () => {
-    const { navigate } = this.props.navigation;
-    const { timeLeft } = this.state;
-    timeLeft == 1 && navigate("Home");
-    this.setState({ timeLeft: timeLeft - 1 });
   };
 
   render() {
     const { navigate } = this.props.navigation;
-    const { eventSlug, timeLeft } = this.state;
+    const { eventSlug } = this.state;
     const { glimpsUri, glimpsId } = this.props.navigation.state.params;
 
     return (
       <Shell>
-        <RetrievalNav
-          retake={() => navigate("EventHome")}
-          timeLeft={timeLeft}
-        />
+        <RetrievalNav retake={() => navigate("EventHome")} />
         <ProcessingCard>
           <Text style={styles.scanItText}>Scan it</Text>
           <QRCode
