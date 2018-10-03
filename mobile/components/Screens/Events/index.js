@@ -3,51 +3,30 @@ import React, { Component } from "react";
 import {
   View,
   Text,
-  Image,
   ScrollView,
   TouchableOpacity,
   AlertIOS
 } from "react-native";
-import { Camera } from "expo";
 
-import { getEvents, verifyEvent } from "../controllers/events";
+import pluralize from "pluralize";
 
-import styles from "../styles";
+import Shell from "../../Shared/Shell";
+import Sheet from "../../Shared/Sheet";
+import EventCard from "../../Shared/EventCard";
 
-function Card(props) {
-  return (
-    <View style={styles.eventCard}>
-      <View style={styles.eventCardImageContainer}>
-        <Image
-          source={{
-            uri: props.image
-              ? props.image
-              : "https://pasteboard.co/images/HyhnMiE.jpg/load",
-            cache: "force-cache"
-          }}
-          style={styles.eventImage}
-        />
-      </View>
+import { getEvents, verifyEvent } from "../../../controllers/events";
 
-      <View style={styles.eventCardInfo}>
-        <Text style={styles.eventName}>{props.name}</Text>
-        <Text style={styles.eventDate}>{props.date}</Text>
-      </View>
-    </View>
-  );
-}
+import styles from "../../../styles";
 
-export class Events extends Component {
+export default class Events extends Component {
   state = { events: [] };
 
-  componentDidMount() {
-    this.getEvents();
-  }
+  componentDidMount = () => this.getEvents();
 
   getEvents = async () => {
     try {
       const events = await getEvents();
-      this.setState({ events: events });
+      this.setState({ events });
     } catch (e) {
       AlertIOS.alert("Glimps", `${e}`);
     }
@@ -67,31 +46,24 @@ export class Events extends Component {
 
     try {
       const verifiedEvent = await verifyEvent(event, key);
-      navigate("CameraPreview", { event: event });
+      navigate("EventHome", { event });
     } catch (e) {
-      AlertIOS.alert("Glimps", `${e}`);
+      AlertIOS.alert("Glimps", `Unable to verify secret for ${event.name}`);
     }
   };
 
-  header = () => (
-    <Camera
-      ref={ref => (this.camera = ref)}
-      style={styles.headerCamera}
-      type="front"
-    >
-      <View style={styles.header}>
-        <Text style={styles.eventsHeaderTitle}>Let's get started!</Text>
-      </View>
-    </Camera>
-  );
+  events = events => {
+    const pluralizedEvents = pluralize("event", events.length, true);
 
-  events = events => (
-    <View style={styles.eventsContainer}>
-      <View style={styles.eventsListContainer}>
+    const Dimensions = require("Dimensions");
+    const { width, height } = Dimensions.get("window");
+
+    return (
+      <Sheet width={width / 1.15} height={height / 1.25}>
         <View style={styles.eventsInfo}>
           <Text style={styles.eventsListSelect}>Select your event</Text>
           <Text style={styles.eventsListAvailable}>
-            {events.length} events available
+            {pluralizedEvents} available
           </Text>
         </View>
 
@@ -103,7 +75,7 @@ export class Events extends Component {
                   key={event.id}
                   onPress={this.verifyEvent.bind(this, event)}
                 >
-                  <Card
+                  <EventCard
                     image={event.mainImageUrl}
                     name={event.name}
                     date={event.date}
@@ -113,18 +85,17 @@ export class Events extends Component {
             })}
           </View>
         </ScrollView>
-      </View>
-    </View>
-  );
+      </Sheet>
+    );
+  };
 
   render() {
     const { events } = this.state;
 
     return (
-      <View style={styles.events}>
-        {this.header()}
+      <Shell headerTitle="Let's get started!">
         {events && this.events(events)}
-      </View>
+      </Shell>
     );
   }
 }
