@@ -49,9 +49,9 @@ function RetrievalNav(props) {
   return (
     <View style={styles.retrievalNavContainer}>
       <View style={styles.retrievalNav}>
-        <Text style={styles.retrievalNavText}>
+        {/* <Text style={styles.retrievalNavText}>
           Starting over in {props.timeLeft} seconds
-        </Text>
+        </Text> */}
         <TouchableOpacity onPress={props.retake}>
           <Button
             borderColor="#FFF"
@@ -72,14 +72,14 @@ function RetrievalNav(props) {
 export default class PhonePad extends React.Component {
   state = { currentPhoneNumber: "", timeLeft: 30 };
 
-  componentDidMount = () => setInterval(this.countdown, 1000);
+  // componentDidMount = () => setInterval(this.countdown, 1000);
 
-  countdown = () => {
-    const { navigate } = this.props.navigation;
-    const { timeLeft } = this.state;
-    timeLeft == 1 && navigate("Home");
-    this.setState({ timeLeft: timeLeft - 1 });
-  };
+  // countdown = () => {
+  //   const { navigate } = this.props.navigation;
+  //   const { timeLeft } = this.state;
+  //   timeLeft == 1 && navigate("Home");
+  //   this.setState({ timeLeft: timeLeft - 1 });
+  // };
 
   formatToPhone = num => {
     const input = num.replace(/\D/g, "").substring(0, 10);
