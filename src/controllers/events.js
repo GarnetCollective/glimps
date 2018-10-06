@@ -7,7 +7,11 @@ import eventsService from "../services/events";
 
 const index = async (req, res) => {
   try {
-    const { limit, offset } = req.query;
+    let { limit = null, offset = null } = req.query;
+
+    limit = limit && parseInt(limit);
+    offset = offset && parseInt(offset);
+
     let events = await eventsService.find(limit, offset);
     return successResponse(res, events);
   } catch (e) {
