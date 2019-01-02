@@ -1,9 +1,13 @@
-const GlimpsModel = (sequelize, Sequelize) => {
-  return sequelize.define("glimps", {
-    id: { type: Sequelize.UUID, primaryKey: true, validate: { isUUID: 4 } },
-    imageUrl: { type: Sequelize.STRING },
-    thumbUrl: { type: Sequelize.STRING }
-  });
-};
+import mongoose from "mongoose";
 
-export default GlimpsModel;
+const Schema = mongoose.Schema;
+
+const glimpsSchema = new Schema({
+  eventId: { type: Schema.Types.ObjectId, required: true },
+  imageUrl: { type: String, required: true },
+  thumbUrl: { type: String, required: true }
+});
+
+const Glimps = mongoose.model("Glimps", glimpsSchema);
+
+export default Glimps;

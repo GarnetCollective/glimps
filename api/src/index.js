@@ -1,4 +1,6 @@
 import "./env";
+import "./db";
+
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -20,12 +22,7 @@ app.use(passport.initialize());
 app.use("/api", apiRouter);
 app.use("/auth", authRouter);
 
-if (NODE_ENV !== "test") {
-  app.listen(PORT, err => {
-    err && console.log(err.message);
-    console.log(`> in ${NODE_ENV}`);
-    console.log(`> ${APP_NAME} listening on port ${PORT}`);
-  });
-}
-
-export default app;
+app.listen(PORT, () => {
+  console.log(`> In ${NODE_ENV}`);
+  console.log(`> ${APP_NAME} listening on ${PORT}`);
+});

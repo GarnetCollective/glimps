@@ -1,17 +1,24 @@
-const Sequelize = require("sequelize");
-const config = require("./config");
+import mongoose from "mongoose";
 
-const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  {
-    host: config.host,
-    dialect: config.dialect,
-    storage: config.storage,
-    operatorsAliases: false,
-    logging: false
-  }
-);
+const { DB_HOST, DB_USERNAME, DB_PASSWORD } = process.env;
 
-export { sequelize, Sequelize };
+const options = {
+  user: DB_USERNAME,
+  pass: DB_PASSWORD,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false
+};
+
+function connectDB() {
+  return Promise.resolve(
+    mongoose.connect(
+      DB_HOST,
+      options
+    )
+  );
+}
+
+connectDB()
+  .then(() => console.log("> DB connected"))
+  .catch(e => console.log(e.message));

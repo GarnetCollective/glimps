@@ -1,6 +1,6 @@
-import { Glimps } from "../models";
+import Glimps from "../models/glimps";
 import eventService from "./events";
-import uuid from "uuid/v4";
+
 const { TILER_HOST } = process.env;
 
 import axios from "axios";
@@ -46,12 +46,7 @@ const findById = id => Glimps.findById(id);
  * @returns {Promise}
  */
 const findByEventId = eventId =>
-  Glimps.findAll({
-    where: {
-      eventId: eventId
-    },
-    order: [["updatedAt", "DESC"]]
-  });
+  Glimps.find({ eventId }, { __v: 0 }).sort({ date: -1 });
 
 /**
  * @param {string} eventId
@@ -71,10 +66,9 @@ const create = async (eventId, data) => {
   }
 
   return Glimps.create({
-    id: uuid(),
+    eventId: event._id,
     imageUrl: glimps.collage,
-    thumbUrl: glimps.collage,
-    eventId: event.id
+    thumbUrl: glimps.collage
   });
 };
 

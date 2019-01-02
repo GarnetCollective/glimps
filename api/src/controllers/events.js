@@ -1,5 +1,4 @@
 import { isValid } from "date-fns";
-import validate from "uuid-validate";
 
 import { successResponse, failureResponse } from "./responses";
 
@@ -23,12 +22,8 @@ const show = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const isValidUUID = validate(id, 4);
-    if (!isValidUUID) {
-      return failureResponse(res, "Not a valid UUID");
-    }
-
     const event = await eventsService.findById(id);
+
     return successResponse(res, event);
   } catch (e) {
     return failureResponse(res, e.message);
@@ -59,8 +54,4 @@ const create = async (req, res) => {
   }
 };
 
-export default {
-  index,
-  show,
-  create
-};
+export default { index, show, create };
