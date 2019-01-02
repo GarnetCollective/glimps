@@ -1,4 +1,3 @@
-// import uuidv4 from "uuid/v4";
 import bcrypt from "bcryptjs";
 import { format } from "date-fns";
 import { convert } from "emoji-text";
@@ -95,10 +94,4 @@ const find = (limit = 10, offset = 0) =>
     .skip(offset)
     .limit(limit);
 
-export default {
-  create,
-  findById,
-  findBySlug,
-  find,
-  verifySecret
-};
+export default { create, findById, findBySlug, find, verifySecret };
