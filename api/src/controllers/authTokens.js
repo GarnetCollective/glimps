@@ -12,7 +12,7 @@ const create = async (req, res) => {
       throw new Error(`Couldn't verify secret for event ${eventId}`);
     }
 
-    const token = jwt.sign({ eventId: verifiedEvent.id }, SECRET_KEY);
+    const token = jwt.sign({ eventId: verifiedEvent.eventId }, SECRET_KEY);
     return successResponse(res, token);
   } catch (e) {
     return failureResponse(res, e.message);

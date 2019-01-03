@@ -14,7 +14,7 @@
     "dev": "backpack dev",
     "build": "backpack build",
     "postinstall": "backpack build",
-    "glimps:createToken": "node src/scripts/genToken.js"
+    "createToken": "node src/scripts/genToken.js"
   },
   "devDependencies": {
     "backpack-core": "^0.7.0"
@@ -31,6 +31,8 @@
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.4.1",
     "passport": "^0.4.0",
-    "passport-http-bearer": "^1.0.1"
+    "passport-http-bearer": "^1.0.1",
+    "uuid": "^3.3.2",
+    "uuid-validate": "^0.0.3"
   }
 }

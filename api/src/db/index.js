@@ -1,21 +1,21 @@
 import mongoose from "mongoose";
 
-const { DB_HOST, DB_USERNAME, DB_PASSWORD } = process.env;
+const { DB_URL } = process.env;
 
 const options = {
-  user: DB_USERNAME,
-  pass: DB_PASSWORD,
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false
 };
 
-function connectDB() {
-  return Promise.resolve(
-    mongoose.connect(
-      DB_HOST,
-      options
-    )
+async function connectDB() {
+  if (!DB_URL) {
+    throw { message: "> DB_URL undefined" };
+  }
+
+  return mongoose.connect(
+    DB_URL,
+    options
   );
 }
 

@@ -63,7 +63,7 @@ const create = async (
     slug
   });
 
-  return findById(event.id);
+  return findById(event.eventId);
 };
 
 /**
@@ -71,7 +71,7 @@ const create = async (
  * @param {string} secretKey
  */
 const verifySecret = async (id, secretKey) => {
-  let event = await Event.findById(id);
+  let event = await Event.findOne({ eventId: id });
   let verified = await bcrypt.compare(secretKey, event.secretKey);
   return verified ? event : false;
 };
@@ -80,18 +80,20 @@ const verifySecret = async (id, secretKey) => {
  * @param {string} id
  * @returns {Promise<any>}
  */
-const findById = async id => Event.findById(id, { secretKey: 0, __v: 0 });
+const findById = async id =>
+  Event.findOne({ eventId: id }, { secretKey: 0 }).exec();
 
 /**
  * @param {string} slug
  * @returns {Promise<any>}
  */
 const findBySlug = async slug =>
-  Event.findOne({ slug }, { secretKey: 0, __v: 0 });
+  Event.findOne({ slug }, { secretKey: 0 }).exec();
 
 const find = (limit = 10, offset = 0) =>
-  Event.find({}, { secretKey: 0, __v: 0 })
+  Event.find({}, { secretKey: 0 })
     .skip(offset)
-    .limit(limit);
+    .limit(limit)
+    .exec();
 
 export default { create, findById, findBySlug, find, verifySecret };

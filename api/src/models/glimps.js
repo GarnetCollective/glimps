@@ -1,9 +1,18 @@
 import mongoose from "mongoose";
+import uuid from "uuid";
 
 const Schema = mongoose.Schema;
 
 const glimpsSchema = new Schema({
-  eventId: { type: Schema.Types.ObjectId, required: true },
+  glimpsId: {
+    type: String,
+    binData: Buffer,
+    index: true,
+    unique: true,
+    required: true,
+    default: uuid.v4
+  },
+  eventId: { type: String, required: true },
   imageUrl: { type: String, required: true },
   thumbUrl: { type: String, required: true }
 });

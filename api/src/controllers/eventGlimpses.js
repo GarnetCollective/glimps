@@ -19,7 +19,7 @@ const index = async (req, res) => {
       throw new Error("eventId or slug is not valid");
     }
 
-    let glimpses = await glimpsService.findByEventId(event._id);
+    let glimpses = await glimpsService.findByEventId(event.eventId);
     if (!glimpses) {
       throw new Error(`no glimpes for event with eventId: ${id}`);
     }
@@ -44,7 +44,7 @@ const create = async (req, res) => {
 
     const { data } = req.body;
 
-    let glimps = await glimpsService.create(event._id, data);
+    let glimps = await glimpsService.create(event.eventId, data);
     return successResponse(res, glimps);
   } catch (e) {
     return failureResponse(res, e.message);

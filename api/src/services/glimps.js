@@ -39,14 +39,16 @@ const makeGlimps = async (event, data) => {
  * @param {string} id
  * @returns {Promise}
  */
-const findById = id => Glimps.findById(id);
+const findById = glimpsId => Glimps.findOne({ glimpsId }).exec();
 
 /**
  * @param {string} eventId
  * @returns {Promise}
  */
 const findByEventId = eventId =>
-  Glimps.find({ eventId }, { __v: 0 }).sort({ date: -1 });
+  Glimps.find({ eventId })
+    .sort({ date: -1 })
+    .exec();
 
 /**
  * @param {string} eventId
@@ -66,7 +68,7 @@ const create = async (eventId, data) => {
   }
 
   return Glimps.create({
-    eventId: event._id,
+    eventId: event.eventId,
     imageUrl: glimps.collage,
     thumbUrl: glimps.collage
   });
