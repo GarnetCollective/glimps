@@ -71,7 +71,7 @@ const create = async (
  * @param {string} secretKey
  */
 const verifySecret = async (id, secretKey) => {
-  let event = await Event.findOne({ eventId: id });
+  let event = await Event.findOne({ eventId: id }).exec();
   let verified = await bcrypt.compare(secretKey, event.secretKey);
   return verified ? event : false;
 };
