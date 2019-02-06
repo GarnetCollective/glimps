@@ -29,6 +29,7 @@ const show = async (req, res) => {
     }
 
     const event = await eventsService.findById(id);
+
     return successResponse(res, event);
   } catch (e) {
     return failureResponse(res, e.message);
@@ -59,8 +60,4 @@ const create = async (req, res) => {
   }
 };
 
-export default {
-  index,
-  show,
-  create
-};
+export default { index, show, create };

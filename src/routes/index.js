@@ -13,18 +13,22 @@ import authCreatorMiddleware from "../middleware/authCreator";
 const apiRouter = Router();
 const authRouter = Router();
 
+// Events
 apiRouter.get("/events", events.index);
 apiRouter.get("/events/:id", events.show);
 apiRouter.post("/events", authCreatorMiddleware, events.create);
 
+// Glimps
 apiRouter.get("/event-glimpses/", eventGlimpses.index);
+apiRouter.get("/glimps/:id", glimps.show);
 apiRouter.post(
   "/events/:id/glimpses",
   authMiddleware,
   authEventMiddleware,
   eventGlimpses.create
 );
-apiRouter.get("/glimps/:id", glimps.show);
+
+// Courier
 apiRouter.post("/text-messages/", authMiddleware, textMessages.create);
 
 authRouter.post("/tokens", authTokens.create);

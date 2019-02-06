@@ -9,6 +9,7 @@ passport.use(
     let eventId;
     try {
       let decoded = await jwt.verify(token, SECRET_KEY);
+
       eventId = decoded.eventId;
     } catch (err) {
       return done(null, false);
@@ -16,6 +17,7 @@ passport.use(
 
     try {
       let event = await eventsService.findById(eventId);
+
       return done(null, event);
     } catch (err) {
       return done(err);
