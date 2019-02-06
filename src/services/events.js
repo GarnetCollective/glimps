@@ -1,9 +1,8 @@
-import uuidv4 from "uuid/v4";
 import bcrypt from "bcryptjs";
 import { format } from "date-fns";
 import { convert } from "emoji-text";
 
-import { Event } from "../models";
+import Event from "../models/events";
 
 /**
  * @param {string} slug
@@ -55,7 +54,6 @@ const create = async (
   }
 
   let event = await Event.create({
-    id: uuidv4(),
     name,
     date,
     mainImageUrl,
@@ -65,7 +63,7 @@ const create = async (
     slug
   });
 
-  return findById(event.id);
+  return findById(event.eventId);
 };
 
 /**
@@ -73,7 +71,8 @@ const create = async (
  * @param {string} secretKey
  */
 const verifySecret = async (id, secretKey) => {
-  let event = await Event.findById(id);
+  let event = await Event.findById(id).exec();
+
   let verified = await bcrypt.compare(secretKey, event.secretKey);
   return verified ? event : false;
 };
@@ -82,26 +81,19 @@ const verifySecret = async (id, secretKey) => {
  * @param {string} id
  * @returns {Promise<any>}
  */
-const findById = async id =>
-  Event.findById(id, { attributes: { exclude: ["secretKey"] } });
+const findById = async id => Event.findById(id, { secretKey: 0 }).exec();
 
 /**
  * @param {string} slug
  * @returns {Promise<any>}
  */
-const findBySlug = async slug => {
-  return Event.findOne({
-    where: { slug },
-    limit: 1,
-    attributes: { exclude: ["secretKey"] }
-  });
-};
+const findBySlug = async slug =>
+  Event.findOne({ slug }, { secretKey: 0 }).exec();
 
 const find = (limit = 10, offset = 0) =>
-  Event.findAll({
-    offset: offset,
-    limit: limit,
-    attributes: { exclude: ["secretKey"] }
-  });
+  Event.find({}, { secretKey: 0 })
+    .skip(offset)
+    .limit(limit)
+    .exec();
 
 export default { create, findById, findBySlug, find, verifySecret };

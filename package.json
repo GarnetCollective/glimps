@@ -1,22 +1,23 @@
 {
-  "name": "api",
+  "name": "glimps-api",
+  "description": "📸 Glimps API - Photo Booth platform",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
+  "authors": [
+    "Juan Alvarado <jalvarado91@gmail.com>",
+    "David Castaneda <dcast188@fiu.edu>"
+  ],
   "license": "MIT",
+  "repository": "garnetcollective/glimps",
   "scripts": {
     "start": "node ./build/main.js",
     "dev": "backpack dev",
     "build": "backpack build",
     "postinstall": "backpack build",
-    "test": "NODE_ENV=test jest --no-cache --detectOpenHandles --colors",
-    "glimps:createToken": "node src/scripts/genToken.js",
-    "glimps:migrate": "node src/scripts/migrate.js"
+    "createToken": "node src/scripts/genToken.js"
   },
   "devDependencies": {
-    "babel-jest": "^23.4.2",
-    "backpack-core": "^0.7.0",
-    "jest": "^23.4.2",
-    "supertest": "^3.1.0"
+    "backpack-core": "^0.7.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -28,38 +29,10 @@
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "jsonwebtoken": "^8.3.0",
-    "mysql2": "^1.6.1",
+    "mongoose": "^5.4.1",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
-    "pg": "^7.4.3",
-    "sequelize": "^4.38.0",
-    "sqlite3": "^4.0.2",
-    "umzug": "^2.1.0",
     "uuid": "^3.3.2",
-    "uuid-validate": "0.0.3"
-  },
-  "jest": {
-    "bail": false,
-    "verbose": true,
-    "forceExit": true,
-    "collectCoverage": false,
-    "testURL": "http://localhost/",
-    "coverageReporters": [
-      "json",
-      "html"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{js}",
-      "!/node_modules/*"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "transformIgnorePatterns": [
-      "<rootDir>/(build|node_modules)/"
-    ],
-    "testPathIgnorePatterns": [
-      "<rootDir>/(build|node_modules)/"
-    ]
+    "uuid-validate": "^0.0.3"
   }
 }
