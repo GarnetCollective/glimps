@@ -9,6 +9,7 @@ passport.use(
     let eventId;
     try {
       let decoded = await jwt.verify(token, SECRET_KEY);
+
       eventId = decoded.eventId;
     } catch (err) {
       return done(null, false);

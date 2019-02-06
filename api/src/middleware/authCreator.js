@@ -13,6 +13,7 @@ const authCreator = async (req, res, next) => {
   try {
     let decoded = await jwt.verify(token, SECRET_KEY);
     let creatorKey = decoded.creatorKey;
+
     if (creatorKey !== CREATOR_KEY) {
       return res.status(401).send("Unauthorized");
     }
