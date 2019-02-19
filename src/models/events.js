@@ -15,10 +15,10 @@ const eventSchema = new Schema(
     },
     name: { type: String, required: true },
     date: { type: Date, required: true },
-    mainImageUrl: { type: String },
-    mainColor: { type: String },
-    logoUrl: { type: String },
-    secretKey: { type: String },
+    mainImageUrl: { type: String, required: true },
+    mainColor: { type: String, default: "#6870FF" },
+    logoUrl: { type: String, required: true },
+    secretKey: { type: String, required: true },
     slug: { type: String }
   },
   { timestamps: true, autoIndex: false }

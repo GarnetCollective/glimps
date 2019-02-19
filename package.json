@@ -14,7 +14,8 @@
     "dev": "backpack dev",
     "build": "backpack build",
     "postinstall": "backpack build",
-    "createToken": "node src/scripts/genToken.js"
+    "createToken": "node src/scripts/genToken.js",
+    "seedDB": "node src/scripts/seedDB.js"
   },
   "devDependencies": {
     "backpack-core": "^0.7.0"
@@ -22,6 +23,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
+    "cheerio": "^1.0.0-rc.2",
     "cors": "^2.8.4",
     "date-fns": "^1.29.0",
     "dotenv": "^6.0.0",

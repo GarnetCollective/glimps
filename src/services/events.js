@@ -63,7 +63,7 @@ const create = async (
     slug
   });
 
-  return findById(event.eventId);
+  return findById(event._id);
 };
 
 /**
