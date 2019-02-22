@@ -1,10 +1,5 @@
 require("dotenv").config({ silent: true });
 
-// validation dependencies
-const { isValid, format } = require("date-fns");
-const bcrypt = require("bcryptjs");
-const { convert } = require("emoji-text");
-
 // scraping dependecies
 const cheerio = require("cheerio");
 const axios = require("axios");
@@ -25,8 +20,7 @@ const apiInstance = axios.create({
  */
 async function seedDB() {
   try {
-    const secretKey = await bcrypt.hash("admin", 8);
-    const events = await fetchHTML(secretKey);
+    const events = await fetchHTML();
 
     await Promise.all(
       events.map(async event => {
@@ -39,32 +33,8 @@ async function seedDB() {
   }
 }
 
-/**
- * @param {string} slug
- */
-function sanitizeSlug(slug) {
-  return slug
-    .trim()
-    .replace(/[^a-zA-Z ]/g, "")
-    .replace(/[^a-zA-Z0-9 -]/g, "")
-    .replace(/\s+/g, "-")
-    .toLowerCase();
-}
-
-/**
- * @param {string} name
- * @param {Date} date
- */
-function getSlug(name, date) {
-  name = convert(name, { delimiter: "" });
-  name = sanitizeSlug(name);
-  date = format(date, "MMDDYYYY");
-
-  return `${name}-${date}`;
-}
-
 /** Fetch HTML from URL */
-async function fetchHTML(secretKey) {
+async function fetchHTML() {
   const { data } = await seedInstance.get(fetch_url);
 
   const $ = cheerio.load(data);
@@ -90,24 +60,15 @@ async function fetchHTML(secretKey) {
       .find(".image-wrap img")
       .attr("src");
 
-    // Validate date format
-    const isValidDate = isValid(date);
+    const event = {
+      name,
+      date,
+      mainImageUrl,
+      logoUrl,
+      secretKey: "admin"
+    };
 
-    if (isValidDate) {
-      // Create slug
-      const slug = getSlug(name, date);
-
-      const event = {
-        name,
-        date,
-        mainImageUrl,
-        logoUrl,
-        slug,
-        secretKey
-      };
-
-      events.push(event);
-    }
+    events.push(event);
   });
 
   return events;
