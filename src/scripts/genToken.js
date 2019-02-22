@@ -6,10 +6,7 @@ const getToken = () => {
   const token = jwt.sign({ creatorKey: CREATOR_KEY }, SECRET_KEY, {
     expiresIn: "1h"
   });
-  console.log({
-    token,
-    expiresIn: 60 * 60
-  });
+  console.log({ token, expiresIn: 60 * 60 });
 };
 
 getToken();
