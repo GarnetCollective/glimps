@@ -1,7 +1,5 @@
 require("dotenv").config({ silent: true });
 
-const { DB_URL } = process.env;
-
 // validation dependencies
 const { isValid, format } = require("date-fns");
 const bcrypt = require("bcryptjs");
