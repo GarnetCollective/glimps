@@ -14,8 +14,7 @@ const axios = require("axios");
 const fetch_url = "https://mlh.io/seasons/na-2019/events";
 const api_url = "http://localhost:3000";
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdG9yS2V5IjoiJGJpZW5zdXBlcm5pY2UiLCJpYXQiOjE1NTA3OTM0MDUsImV4cCI6MTU1MDc5NzAwNX0.G7UWsnfhR19o3JqwyeS2QSQsWkGy0F9PLW-BfB2Yb4k";
+const token = "";
 
 const seedInstance = axios.create({ baseURL: fetch_url });
 const apiInstance = axios.create({
