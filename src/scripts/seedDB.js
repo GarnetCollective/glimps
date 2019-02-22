@@ -2,10 +2,6 @@ require("dotenv").config({ silent: true });
 
 const { DB_URL } = process.env;
 
-// db dependencies
-const mongoose = require("mongoose");
-const uuid = require("uuid");
-
 // validation dependencies
 const { isValid, format } = require("date-fns");
 const bcrypt = require("bcryptjs");
@@ -16,69 +12,29 @@ const cheerio = require("cheerio");
 const axios = require("axios");
 
 const fetch_url = "https://mlh.io/seasons/na-2019/events";
+const api_url = "http://localhost:3000";
+
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdG9yS2V5IjoiJGJpZW5zdXBlcm5pY2UiLCJpYXQiOjE1NTA3OTM0MDUsImV4cCI6MTU1MDc5NzAwNX0.G7UWsnfhR19o3JqwyeS2QSQsWkGy0F9PLW-BfB2Yb4k";
+
 const seedInstance = axios.create({ baseURL: fetch_url });
-
-/** START DB Connection */
-if (!DB_URL) {
-  console.log("> 🙅🏻‍♂️ DB URL not provided");
-  process.exit(0);
-}
-
-const options = {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-};
-
-async function db() {
-  Promise.resolve(mongoose.connect(DB_URL, options));
-}
-/** END DB Connection */
-
-/** Mongoose schema definition */
-const Schema = mongoose.Schema;
-
-const eventSchema = new Schema(
-  {
-    _id: {
-      type: String,
-      binData: Buffer,
-      index: true,
-      unique: true,
-      required: true,
-      default: uuid.v4
-    },
-    name: { type: String, required: true },
-    date: { type: Date, required: true },
-    mainImageUrl: { type: String, required: true },
-    mainColor: { type: String, default: "#6870FF" },
-    logoUrl: { type: String, required: true },
-    secretKey: { type: String, required: true },
-    slug: { type: String }
-  },
-  { timestamps: true, autoIndex: false }
-);
-
-const Event = mongoose.model("Event", eventSchema);
+const apiInstance = axios.create({
+  baseURL: api_url,
+  headers: { Authorization: `Bearer ${token}` }
+});
 
 /**
  * Main executed function
  */
 async function seedDB() {
   try {
-    const events = await fetchHTML();
-
-    // Hash secret Key
-    const secretKey = "admin";
-    let hashedSecret = null;
-    if (secretKey) {
-      hashedSecret = await bcrypt.hash(secretKey, 8);
-    }
+    const secretKey = await bcrypt.hash("admin", 8);
+    const events = await fetchHTML(secretKey);
 
     await Promise.all(
       events.map(async event => {
-        event.secretKey = hashedSecret;
-        await Event.create(event);
+        const { data } = await apiInstance.post("/api/events", event);
+        return data;
       })
     );
   } catch (e) {
@@ -111,7 +67,7 @@ function getSlug(name, date) {
 }
 
 /** Fetch HTML from URL */
-async function fetchHTML() {
+async function fetchHTML(secretKey) {
   const { data } = await seedInstance.get(fetch_url);
 
   const $ = cheerio.load(data);
@@ -149,7 +105,8 @@ async function fetchHTML() {
         date,
         mainImageUrl,
         logoUrl,
-        slug
+        slug,
+        secretKey
       };
 
       events.push(event);
@@ -158,10 +115,6 @@ async function fetchHTML() {
 
   return events;
 }
-
-db()
-  .then(() => console.log("> 🗄  Mongo connected"))
-  .catch(e => console.log(e.message));
 
 seedDB()
   .then(() => {
